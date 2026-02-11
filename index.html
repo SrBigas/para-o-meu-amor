@@ -43,32 +43,37 @@
         const phrases = ["Tens a certeza?", "Pensa bem...", "Olha o erro!", "Nem penses!", "Vais arrepender-te!", "Diz que simmm!"];
         let count = 0;
 
-        function moveButton() {
+       function moveButton() {
             const btn = document.getElementById('noBtn');
             
-            // Defini uma margem de segurança de 50px para não bater na borda
-            const margin = 50; 
+            // Definimos uma margem de segurança maior (80px) para garantir visibilidade
+            const padding = 80; 
 
-            // Calcula a largura e altura disponíveis (menos o tamanho do botão e a margem)
-            const maxWidth = window.innerWidth - btn.offsetWidth - margin;
-            const maxHeight = window.innerHeight - btn.offsetHeight - margin;
+            // Calculamos os limites máximos reais do ecrã
+            const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+            const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
 
-            // Garante que a posição nunca é negativa nem zero
-            const randomX = Math.max(margin, Math.random() * maxWidth);
-            const randomY = Math.max(margin, Math.random() * maxHeight);
+            // Garantimos que o botão não sai pelas bordas (largura e altura do ecrã menos o tamanho do botão e margem)
+            const maxWidth = vw - btn.offsetWidth - padding;
+            const maxHeight = vh - btn.offsetHeight - padding;
 
+            // Geramos uma posição aleatória dentro do espaço seguro (pelo menos 'padding' de distância do topo/esquerda)
+            const randomX = Math.floor(Math.random() * (maxWidth - padding + 1)) + padding;
+            const randomY = Math.floor(Math.random() * (maxHeight - padding + 1)) + padding;
+
+            // Aplicamos as novas coordenadas
             btn.style.left = randomX + 'px';
             btn.style.top = randomY + 'px';
 
-            // Muda o texto do botão "Não" (mantive a tua lógica antiga aqui)
+            // Muda o texto do botão "Não"
             btn.innerHTML = phrases[count % phrases.length];
             count++;
 
-            // Faz o botão "Sim" crescer
+            // Faz o botão "Sim" crescer (para ela não ter outra escolha!)
             const yes = document.getElementById('yesBtn');
             const currentSize = parseFloat(window.getComputedStyle(yes).fontSize);
-            yes.style.fontSize = (currentSize + 2) + 'px';
-            yes.style.padding = (currentSize + 5) + 'px';
+            yes.style.fontSize = (currentSize + 3) + 'px';
+            yes.style.padding = (currentSize + 6) + 'px';
         }
 
         function accepted() {
