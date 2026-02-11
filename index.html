@@ -56,7 +56,7 @@
 
     <h1 id="question">Queres ser a minha Valentine? ❤️</h1>
     
-    <img id="gif" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" width="200">
+    <img id="gif" src="https://i.giphy.com/media/cLS1cfxvGOPVpf9g3y/giphy.gif" width="200">
 
     <div class="buttons" id="buttonContainer">
         <button id="yesBtn" onclick="accepted()">SIM</button>
@@ -127,13 +127,13 @@
 
         function accepted() {
             document.getElementById('question').innerHTML = "Sábia decisão! ❤️ Agora não há devoluções!";
-            // GIF de celebração fofinho
-            document.getElementById('gif').src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmZ0ZzJpZ3R4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiZ7/giphy.gif";
+            
+            // LINK DO GIF FINAL CORRIGIDO
+            document.getElementById('gif').src = "https://i.giphy.com/media/KztT2c4u8mYYUiCiZ7/giphy.gif";
             
             document.getElementById('buttonContainer').style.display = 'none';
             document.getElementById('contador').style.display = 'block';
             
-            // Inicia o contador e atualiza a cada segundo
             updateTimer();
             setInterval(updateTimer, 1000);
 
