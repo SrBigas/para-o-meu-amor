@@ -39,54 +39,54 @@
 
     <audio id="musica" src="https://www.myinstants.com/media/sounds/careless-whisper-chorus.mp3"></audio>
 
-    <script>
+<script>
         const phrases = [
-    "não", 
-    "tens a certeza?", 
-    "pensa bem...", 
-    "vais meter que não outra vez?", 
-    "nooooop", 
-    "tenta outra vez", 
-    "Diz que sim, amor! ❤️", 
-    "Estás a fazer-me sofrer... 🥺", 
-    "Sou o teu Valentine favorito!", 
-    "Vais partir-me o coração? 💔", 
-    "Prometo que vais adorar!", 
-    "Olha que eu choro! 😭"
-    "Anda lá, já chega carrega que sim ❤️"
-];
+            "Não", 
+            "Tens a certeza?", 
+            "Pensa bem...", 
+            "Vais meter que não outra vez?", 
+            "Nooooop", 
+            "Tenta outra vez", 
+            "Diz que sim, amor! ❤️", 
+            "Estás a fazer-me sofrer... 🥺", 
+            "Sou o teu Valentine favorito!", 
+            "Vais partir-me o coração? 💔", 
+            "Prometo que vais adorar!", 
+            "Olha que eu choro! 😭",
+            "Anda lá, já chega, carrega que sim ❤️"
+        ];
+
         let count = 0;
 
-      function moveButton() {
+        function moveButton() {
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
             
-            // 1. Obtemos a posição e o tamanho do botão "Sim" (o centro)
+            // 1. Posição do botão Sim
             const yesRect = yesBtn.getBoundingClientRect();
             const yesCenterX = yesRect.left + yesRect.width / 2;
             const yesCenterY = yesRect.top + yesRect.height / 2;
 
-            // 2. Definimos um "raio" de salto (distância do centro)
-            // Aumentamos o raio conforme o botão Sim cresce para não ficarem sobrepostos
+            // 2. Raio de salto (afasta-se conforme o Sim cresce)
             const radius = 150 + (count * 5); 
 
-            // 3. Geramos um ângulo aleatório (0 a 360 graus)
+            // 3. Ângulo aleatório
             const angle = Math.random() * 2 * Math.PI;
 
-            // 4. Calculamos as novas coordenadas X e Y
+            // 4. Novas coordenadas
             const newX = yesCenterX + Math.cos(angle) * radius - (noBtn.offsetWidth / 2);
             const newY = yesCenterY + Math.sin(angle) * radius - (noBtn.offsetHeight / 2);
 
-            // 5. Aplicamos as novas coordenadas (usando fixed para ignorar margens do container)
+            // 5. Aplicar posição
             noBtn.style.position = 'fixed';
             noBtn.style.left = newX + 'px';
             noBtn.style.top = newY + 'px';
 
-            // Muda o texto do botão "Não"
-            noBtn.innerHTML = phrases[count % phrases.length];
+            // Atualiza o texto do botão Não
+            noBtn.innerHTML = phrases[Math.min(count, phrases.length - 1)];
             count++;
 
-            // Faz o botão "Sim" crescer
+            // Faz o botão Sim crescer
             const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
             yesBtn.style.fontSize = (currentSize + 2) + 'px';
             yesBtn.style.padding = (currentSize + 5) + 'px';
@@ -98,9 +98,10 @@
             document.querySelector('.buttons').style.display = 'none';
             
             // Toca a música
-            document.getElementById('musica').play();
+            const musica = document.getElementById('musica');
+            musica.play();
 
-            // Começa a chuva de corações
+            // Chuva de corações
             setInterval(createHeart, 100);
         }
 
@@ -109,10 +110,11 @@
             heart.classList.add('heart');
             heart.innerHTML = '❤️';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            heart.style.position = 'fixed';
+            heart.style.top = '-20px';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animation = `fall ${Math.random() * 2 + 3}s linear forwards`;
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 5000);
         }
     </script>
-</body>
-</html>
