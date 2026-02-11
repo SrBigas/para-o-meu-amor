@@ -10,14 +10,31 @@
             height: 100vh; background-color: #ffe6e6; font-family: 'Comic Sans MS', cursive;
             overflow: hidden; text-align: center; margin: 0;
         }
-        h1 { color: #d63384; transition: 0.5s; }
-        .buttons { margin-top: 20px; position: relative; width: 100%; height: 300px; }
+        h1 { color: #d63384; transition: 0.5s; z-index: 1; }
+        
+        /* Ajuste aqui: Botões agora começam organizados lado a lado */
+        .buttons { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 20px; 
+            margin-top: 20px; 
+            width: 100%; 
+            height: 150px; /* Aumentado para dar espaço ao Sim quando crescer */
+            position: relative;
+        }
+
         button {
             padding: 15px 30px; font-size: 20px; cursor: pointer; border: none;
             border-radius: 50px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 2;
         }
+
         #yesBtn { background-color: #4caf50; color: white; transform: scale(1.1); }
-        #noBtn { background-color: #f44336; color: white; position: absolute; }
+        
+        /* Removido o absolute daqui para ele não começar em cima do outro */
+        #noBtn { background-color: #f44336; color: white; position: relative; }
+
         .heart {
             position: absolute; color: #ff4d4d; font-size: 20px;
             animation: fall linear forwards;
@@ -25,6 +42,8 @@
         @keyframes fall {
             to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
+        
+        img { z-index: 1; }
     </style>
 </head>
 <body>
@@ -39,7 +58,7 @@
 
     <audio id="musica" src="https://www.myinstants.com/media/sounds/careless-whisper-chorus.mp3"></audio>
 
-<script>
+    <script>
         const phrases = [
             "Não", 
             "Tens a certeza?", 
@@ -62,6 +81,9 @@
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
             
+            // Agora, ao clicar, ele passa a ter posição fixa para poder fugir
+            noBtn.style.position = 'fixed';
+
             // 1. Posição do botão Sim
             const yesRect = yesBtn.getBoundingClientRect();
             const yesCenterX = yesRect.left + yesRect.width / 2;
@@ -78,7 +100,6 @@
             const newY = yesCenterY + Math.sin(angle) * radius - (noBtn.offsetHeight / 2);
 
             // 5. Aplicar posição
-            noBtn.style.position = 'fixed';
             noBtn.style.left = newX + 'px';
             noBtn.style.top = newY + 'px';
 
@@ -97,11 +118,9 @@
             document.getElementById('gif').src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KztT2c4u8mYYUiCiZ7/giphy.gif";
             document.querySelector('.buttons').style.display = 'none';
             
-            // Toca a música
             const musica = document.getElementById('musica');
             musica.play();
 
-            // Chuva de corações
             setInterval(createHeart, 100);
         }
 
@@ -118,3 +137,5 @@
             setTimeout(() => heart.remove(), 5000);
         }
     </script>
+</body>
+</html>
