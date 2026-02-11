@@ -45,17 +45,26 @@
 
         function moveButton() {
             const btn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - btn.clientWidth);
-            const y = Math.random() * (window.innerHeight - btn.clientHeight);
             
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
-            
-            // Muda o texto do botão "Não"
+            // Defini uma margem de segurança de 50px para não bater na borda
+            const margin = 50; 
+
+            // Calcula a largura e altura disponíveis (menos o tamanho do botão e a margem)
+            const maxWidth = window.innerWidth - btn.offsetWidth - margin;
+            const maxHeight = window.innerHeight - btn.offsetHeight - margin;
+
+            // Garante que a posição nunca é negativa nem zero
+            const randomX = Math.max(margin, Math.random() * maxWidth);
+            const randomY = Math.max(margin, Math.random() * maxHeight);
+
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+
+            // Muda o texto do botão "Não" (mantive a tua lógica antiga aqui)
             btn.innerHTML = phrases[count % phrases.length];
             count++;
 
-            // Faz o botão "Sim" crescer para ser mais fácil clicar!
+            // Faz o botão "Sim" crescer
             const yes = document.getElementById('yesBtn');
             const currentSize = parseFloat(window.getComputedStyle(yes).fontSize);
             yes.style.fontSize = (currentSize + 2) + 'px';
