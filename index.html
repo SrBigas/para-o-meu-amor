@@ -43,37 +43,39 @@
         const phrases = ["Tens a certeza?", "Pensa bem...", "Olha o erro!", "Nem penses!", "Vais arrepender-te!", "Diz que simmm!"];
         let count = 0;
 
-       function moveButton() {
-            const btn = document.getElementById('noBtn');
+      function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
             
-            // Definimos uma margem de segurança maior (80px) para garantir visibilidade
-            const padding = 80; 
+            // 1. Obtemos a posição e o tamanho do botão "Sim" (o centro)
+            const yesRect = yesBtn.getBoundingClientRect();
+            const yesCenterX = yesRect.left + yesRect.width / 2;
+            const yesCenterY = yesRect.top + yesRect.height / 2;
 
-            // Calculamos os limites máximos reais do ecrã
-            const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-            const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+            // 2. Definimos um "raio" de salto (distância do centro)
+            // Aumentamos o raio conforme o botão Sim cresce para não ficarem sobrepostos
+            const radius = 150 + (count * 5); 
 
-            // Garantimos que o botão não sai pelas bordas (largura e altura do ecrã menos o tamanho do botão e margem)
-            const maxWidth = vw - btn.offsetWidth - padding;
-            const maxHeight = vh - btn.offsetHeight - padding;
+            // 3. Geramos um ângulo aleatório (0 a 360 graus)
+            const angle = Math.random() * 2 * Math.PI;
 
-            // Geramos uma posição aleatória dentro do espaço seguro (pelo menos 'padding' de distância do topo/esquerda)
-            const randomX = Math.floor(Math.random() * (maxWidth - padding + 1)) + padding;
-            const randomY = Math.floor(Math.random() * (maxHeight - padding + 1)) + padding;
+            // 4. Calculamos as novas coordenadas X e Y
+            const newX = yesCenterX + Math.cos(angle) * radius - (noBtn.offsetWidth / 2);
+            const newY = yesCenterY + Math.sin(angle) * radius - (noBtn.offsetHeight / 2);
 
-            // Aplicamos as novas coordenadas
-            btn.style.left = randomX + 'px';
-            btn.style.top = randomY + 'px';
+            // 5. Aplicamos as novas coordenadas (usando fixed para ignorar margens do container)
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
 
             // Muda o texto do botão "Não"
-            btn.innerHTML = phrases[count % phrases.length];
+            noBtn.innerHTML = phrases[count % phrases.length];
             count++;
 
-            // Faz o botão "Sim" crescer (para ela não ter outra escolha!)
-            const yes = document.getElementById('yesBtn');
-            const currentSize = parseFloat(window.getComputedStyle(yes).fontSize);
-            yes.style.fontSize = (currentSize + 3) + 'px';
-            yes.style.padding = (currentSize + 6) + 'px';
+            // Faz o botão "Sim" crescer
+            const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentSize + 2) + 'px';
+            yesBtn.style.padding = (currentSize + 5) + 'px';
         }
 
         function accepted() {
