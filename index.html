@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenho uma pergunta...</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #ffe6e6;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+        h1 { color: #d63384; }
+        .buttons { margin-top: 20px; position: relative; width: 300px; height: 100px; }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        #yesBtn { background-color: #4caf50; color: white; }
+        #noBtn {
+            background-color: #f44336;
+            color: white;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="question">Queres ser a minha Valentine? ❤️</h1>
+    <img id="gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" width="200">
+
+    <div class="buttons">
+        <button id="yesBtn" onclick="accepted()">SIM</button>
+        <button id="noBtn" onmouseover="moveButton()">NÃO</button>
+    </div>
+
+    <script>
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - btn.clientWidth);
+            const y = Math.random() * (window.innerHeight - btn.clientHeight);
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function accepted() {
+            document.getElementById('question').innerHTML = "Sábia decisão! Amo-te! 😍";
+            document.getElementById('gif').src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KztT2c4u8mYYUiCiZ7/giphy.gif";
+            document.querySelector('.buttons').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
