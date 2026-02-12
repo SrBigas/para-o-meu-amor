@@ -10,9 +10,7 @@
             height: 100vh; background-color: #ffe6e6; font-family: 'Comic Sans MS', cursive;
             overflow: hidden; text-align: center; margin: 0;
         }
-        h1 { color: #d63384; transition: 0.5s; z-index: 1; padding: 0 20px; }
-        
-        /* Containers de Secções */
+        h1, h2 { color: #d63384; z-index: 1; padding: 0 20px; }
         .section { display: none; flex-direction: column; align-items: center; width: 100%; }
         .active { display: flex; }
 
@@ -22,59 +20,69 @@
         }
 
         button {
-            padding: 15px 30px; font-size: 20px; cursor: pointer; border: none;
+            padding: 15px 30px; font-size: 18px; cursor: pointer; border: none;
             border-radius: 50px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             z-index: 2;
         }
 
-        .btn-next { background-color: #ff4d4d; color: white; margin-top: 20px; }
-        #yesBtn { background-color: #4caf50; color: white; transform: scale(1.1); }
-        #noBtn { background-color: #f44336; color: white; position: relative; }
+        .btn-pink { background-color: #ff85a2; color: white; }
+        .btn-green { background-color: #4caf50; color: white; }
+        .btn-red { background-color: #f44336; color: white; }
 
         #contador {
-            display: none; margin-top: 20px; font-size: 1.2rem; color: #d63384;
-            background: rgba(255, 255, 255, 0.5); padding: 20px; border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 1;
+            display: none; margin-top: 20px; font-size: 1.1rem; color: #d63384;
+            background: rgba(255, 255, 255, 0.6); padding: 15px; border-radius: 20px;
         }
 
-        .timer-unit { font-weight: bold; font-size: 1.5rem; }
-
-        .heart {
-            position: fixed; color: #ff4d4d; font-size: 20px;
-            animation: fall linear forwards; z-index: 0;
-        }
-        @keyframes fall {
-            to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-        }
+        .timer-unit { font-weight: bold; font-size: 1.3rem; }
+        .heart { position: fixed; color: #ff4d4d; animation: fall linear forwards; z-index: 0; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
         
-        img { z-index: 1; max-width: 80%; border-radius: 15px; margin-bottom: 10px; }
-        .quiz-container { max-width: 500px; padding: 20px; }
+        img { max-width: 250px; border-radius: 15px; margin-bottom: 10px; }
+        #redeemBtn { position: absolute; }
     </style>
 </head>
 <body>
 
-    <div id="section-capa" class="section active">
+    <div id="sec-capa" class="section active">
         <h1>Tenho um desafio para ti... ❤️</h1>
-        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" width="200">
-        <p>Estás preparada para o Teste de Aptidão de Namorada?</p>
-        <button class="btn-next" onclick="nextSection('section-quiz')">Estou pronta! 🚀</button>
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif">
+        <p>Estás pronta para o Teste de Aptidão de Namorada?</p>
+        <button class="btn-pink" onclick="showSec('sec-quiz')">Estou pronta! 🚀</button>
     </div>
 
-    <div id="section-quiz" class="section">
-        <h2 id="quiz-question-number" style="color: #d63384;">Pergunta 1/10</h2>
-        <h1 id="quiz-question-text">Quem manda na relação?</h1>
-        <div class="buttons">
-            <button onclick="nextQuestion()" style="background-color: #ff85a2; color: white;" id="optA">Eu (mentira)</button>
-            <button onclick="nextQuestion()" style="background-color: #ff85a2; color: white;" id="optB">Tu (obviamente)</button>
+    <div id="sec-quiz" class="section">
+        <h2 id="quiz-title">Pergunta 1/10</h2>
+        <h1 id="quiz-text">Quem manda na relação?</h1>
+        <div id="quiz-media"></div>
+        <div class="buttons" id="quiz-btns">
+            </div>
+    </div>
+
+    <div id="sec-redeem" class="section">
+        <h1>Teste Concluído! Acertaste TUDO! 🎉</h1>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYt5jRKzAFnMBe8/giphy.gif">
+        <div style="height: 200px; width: 100%; position: relative;">
+            <button id="redeemBtn" class="btn-green" onclick="handleRedeem()">REDEEM YOUR PRIZE 🎁</button>
         </div>
     </div>
 
-    <div id="section-pedido" class="section">
-        <h1 id="question">Queres ser a minha Valentine? ❤️</h1>
-        <img id="gif" src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" width="200">
-        <div class="buttons" id="buttonContainer">
-            <button id="yesBtn" onclick="accepted()">SIM</button>
-            <button id="noBtn" onclick="moveButton()">NÃO</button>
+    <div id="sec-vale" class="section">
+        <h1>Surpresa! 👢</h1>
+        <div style="background: white; padding: 20px; border-radius: 20px; border: 3px dashed #d63384;">
+            <h2>Vale 1 par de botas</h2>
+            <p>"Válido para o resto das nossas vidas" ❤️</p>
+        </div>
+        <p style="margin-top: 20px;">Estás pronta para a pergunta final?</p>
+        <button class="btn-pink" onclick="showSec('sec-final')">SIM, DESPACHA-TE!</button>
+    </div>
+
+    <div id="sec-final" class="section">
+        <h1 id="final-question">Queres ser a minha Valentine? ❤️</h1>
+        <img id="final-gif" src="https://i.giphy.com/media/cLS1cfxvGOPVpf9g3y/giphy.gif">
+        <div class="buttons" id="final-btns">
+            <button id="yesBtn" class="btn-green" onclick="accepted()">SIM</button>
+            <button id="noBtn" class="btn-red" onclick="moveNoButton()">NÃO</button>
         </div>
         <div id="contador">
             <p>Já estamos juntos há:</p>
@@ -85,106 +93,197 @@
     <audio id="musica" src="https://www.myinstants.com/media/sounds/careless-whisper-chorus.mp3"></audio>
 
     <script>
-        // CONFIGURAÇÃO DO QUIZ
-        const questions = [
-            { q: "Quem manda na relação?", a: "Eu (mentira)", b: "Tu (obviamente)" },
-            { q: "O que fazer quando tenho fome?", a: "Dar comida em 5 min", b: "Correr pela vida" },
-            { q: "Quem demora mais a arranjar-se?", a: "Tu", b: "Tu, mas eu espero" },
-            { q: "Roubar batatas do meu prato é...", a: "Crime federal", b: "Direito teu ❤️" },
-            { q: "Quem é o Ladrão de Cobertores?", a: "Um monstro", b: "Tu, todas as noites" },
-            { q: "Quantas fotos até estares 'Instagramável'?", a: "537 fotos", b: "Até acabar a bateria" },
-            { q: "Se eu fosse uma minhoca...", a: "Pisavas-me", b: "Davas-me mimos" },
-            { q: "Qual é o meu melhor atributo?", a: "Paciência de santo", b: "O meu rabo" },
-            { q: "Onde vamos jantar hoje?", a: "Onde tu quiseres", b: "Onde tu quiseres (eu pago)" },
-            { q: "Estás pronta para a pergunta final?", a: "Sim!", b: "Sim, por favor!" }
-        ];
+        let currentStep = 1;
+        let quizSubStep = 0;
+        let fleeCount = 0;
 
-        let currentQ = 0;
+        function showSec(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            if(id === 'sec-quiz') renderQuiz();
+        }
 
-        function nextQuestion() {
-            currentQ++;
-            if (currentQ < questions.length) {
-                document.getElementById('quiz-question-number').innerHTML = `Pergunta ${currentQ + 1}/10`;
-                document.getElementById('quiz-question-text').innerHTML = questions[currentQ].q;
-                document.getElementById('optA').innerHTML = questions[currentQ].a;
-                document.getElementById('optB').innerHTML = questions[currentQ].b;
-            } else {
-                nextSection('section-pedido');
+        function renderQuiz() {
+            const title = document.getElementById('quiz-title');
+            const text = document.getElementById('quiz-text');
+            const btns = document.getElementById('quiz-btns');
+            const media = document.getElementById('quiz-media');
+            btns.innerHTML = '';
+            media.innerHTML = '';
+
+            switch(currentStep) {
+                case 1:
+                    title.innerText = "Pergunta 1/10";
+                    text.innerText = quizSubStep === 0 ? "Quem manda na relação?" : (quizSubStep === 1 ? "Mentira..." : "Obviamente tu!");
+                    createBtn(quizSubStep === 0 ? "Eu" : "Continuar", () => {
+                        if(quizSubStep < 2) { quizSubStep++; renderQuiz(); }
+                        else { nextQ(); }
+                    });
+                    break;
+
+                case 2:
+                    title.innerText = "Pergunta 2/10";
+                    text.innerText = quizSubStep === 0 ? "O que fazer quando tenho fome?" : "ERRAADO! Tenho de correr pela vida porque só tenho 5 min para te dar comida!";
+                    createBtn("Dar comida em 5 min", () => { quizSubStep = 1; renderQuiz(); });
+                    createBtn("Correr pela vida", () => { quizSubStep = 1; renderQuiz(); });
+                    if(quizSubStep === 1) { btns.innerHTML = ''; createBtn("Entendido 🫡", nextQ); }
+                    break;
+
+                case 3:
+                    title.innerText = "Pergunta 3/10";
+                    text.innerText = "Quem demora mais a arranjar-se?";
+                    createBtn(quizSubStep === 0 ? "Tu" : "Tu, mas eu espero", () => {
+                        if(quizSubStep === 0) { quizSubStep = 1; renderQuiz(); }
+                        else nextQ();
+                    });
+                    break;
+
+                case 4:
+                    title.innerText = "Pergunta 4/10";
+                    const p4Texts = ["Roubar batatas do meu prato é...", "Tens a certeza?", "Mesmo mesmo mesmo?", "Joking... claro que podes tirar se eu não comer primeiro!"];
+                    text.innerText = p4Texts[quizSubStep];
+                    createBtn("Crime", () => { if(quizSubStep < 3) { quizSubStep++; renderQuiz(); } else nextQ(); });
+                    if(quizSubStep === 0) createBtn("Direito teu ❤️", nextQ);
+                    break;
+
+                case 5:
+                    title.innerText = "Pergunta 5/10";
+                    text.innerText = quizSubStep === 0 ? "Quem é o Ladrão de Cobertores?" : "Eu sei que eras incapaz, obviamente é um monstro!";
+                    createBtn("Um monstro", () => { quizSubStep = 1; renderQuiz(); });
+                    createBtn("Tu, todas as noites", () => { quizSubStep = 1; renderQuiz(); });
+                    if(quizSubStep === 1) { btns.innerHTML = ''; createBtn("Pois é 😇", nextQ); }
+                    break;
+
+                case 6:
+                    title.innerText = "Pergunta 6/10 (Easter Egg!)";
+                    text.innerText = quizSubStep === 0 ? "Quantas fotos até estares 'Instagramável'?" : "Não reparaste em nada? ❤️";
+                    if(quizSubStep === 1) text.innerHTML += "<br><span style='font-size:40px'>19 / 08 / 2024</span>";
+                    
+                    const btnDate = document.createElement('button');
+                    btnDate.className = 'btn-pink';
+                    btnDate.innerText = quizSubStep === 0 ? "19082024" : "Continuar";
+                    btnDate.onclick = () => { if(quizSubStep === 0) { quizSubStep = 1; renderQuiz(); } else nextQ(); };
+                    btns.appendChild(btnDate);
+
+                    if(quizSubStep === 0) {
+                        const btnErr = document.createElement('button');
+                        btnErr.className = 'btn-red';
+                        btnErr.innerText = "Até acabar a bateria";
+                        btnErr.onmouseover = () => btnErr.style.display = 'none';
+                        btns.appendChild(btnErr);
+                    }
+                    break;
+
+                case 7:
+                    title.innerText = "Pergunta 7/10";
+                    text.innerText = "Se eu fosse uma minhoca...";
+                    if(quizSubStep === 1) {
+                        text.innerText = "Tu és mesmo má! 🥺";
+                        media.innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/v98L8wALXpS6Y/giphy.gif">';
+                    }
+                    if(quizSubStep === 2) text.innerText = "Acho bem! 🥰";
+                    
+                    if(quizSubStep === 0) {
+                        createBtn("Pisavas-me", () => { quizSubStep = 1; renderQuiz(); });
+                        createBtn("Davas-me mimos", () => { quizSubStep = 2; renderQuiz(); });
+                    } else {
+                        createBtn("Continuar", nextQ);
+                    }
+                    break;
+
+                case 8:
+                    title.innerText = "Pergunta 8/10";
+                    text.innerText = quizSubStep === 0 ? "Qual é o meu melhor atributo?" : "Paciência de santo + O meu rabo (Combo Perfeito)";
+                    createBtn("Paciência de santo", () => { quizSubStep = 1; renderQuiz(); });
+                    createBtn("O meu rabo", () => { quizSubStep = 1; renderQuiz(); });
+                    if(quizSubStep === 1) { btns.innerHTML = ''; createBtn("Concordo plenamente", nextQ); }
+                    break;
+
+                case 9:
+                    title.innerText = "Pergunta 9/10";
+                    text.innerText = "Onde vamos jantar hoje?";
+                    for(let i=0; i<4; i++) createBtn("McDonalds", nextQ);
+                    break;
+
+                case 10:
+                    title.innerText = "Pergunta 10/10";
+                    text.innerText = "Estás pronta para a pergunta final?";
+                    createBtn("Sim!", () => showSec('sec-redeem'));
+                    createBtn("Sim, por favor!", () => showSec('sec-redeem'));
+                    break;
             }
         }
 
-        function nextSection(id) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+        function createBtn(txt, fn) {
+            const b = document.createElement('button');
+            b.className = 'btn-pink';
+            b.innerText = txt;
+            b.onclick = fn;
+            document.getElementById('quiz-btns').appendChild(b);
         }
 
-        // LÓGICA DO PEDIDO (O QUE JÁ TINHAS)
-        const phrases = [
-            "Não", "Tens a certeza?", "Pensa bem...", "Vais meter que não outra vez?", 
-            "Nooooop", "Tenta outra vez", "Diz que sim, amor! ❤️", 
-            "Estás a fazer-me sofrer... 🥺", "Sou o teu Valentine favorito!", 
-            "Vais partir-me o coração? 💔", "Prometo que vais adorar!", 
-            "Olha que eu choro! 😭", "Anda lá, já chega, carrega que sim ❤️"
-        ];
+        function nextQ() { currentStep++; quizSubStep = 0; renderQuiz(); }
 
-        let count = 0;
+        function handleRedeem() {
+            const btn = document.getElementById('redeemBtn');
+            if(fleeCount < 20) {
+                const x = Math.random() * (window.innerWidth - 200);
+                const y = Math.random() * (window.innerHeight - 100);
+                btn.style.left = x + 'px';
+                btn.style.top = y + 'px';
+                fleeCount++;
+            } else {
+                btn.innerText = "OK, JÁ CHEGA! VER PRÉMIO";
+                btn.style.position = 'relative';
+                btn.style.left = '0'; btn.style.top = '0';
+                btn.onclick = () => showSec('sec-vale');
+            }
+        }
 
-        function moveButton() {
+        // LÓGICA FINAL (SATELLITE NO BUTTON)
+        let noCount = 0;
+        function moveNoButton() {
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
             noBtn.style.position = 'fixed';
             const yesRect = yesBtn.getBoundingClientRect();
-            const yesCenterX = yesRect.left + yesRect.width / 2;
-            const yesCenterY = yesRect.top + yesRect.height / 2;
-            const radius = 150 + (count * 5); 
-            const angle = Math.random() * 2 * Math.PI;
-            const newX = yesCenterX + Math.cos(angle) * radius - (noBtn.offsetWidth / 2);
-            const newY = yesCenterY + Math.sin(angle) * radius - (noBtn.offsetHeight / 2);
-            noBtn.style.left = newX + 'px';
-            noBtn.style.top = newY + 'px';
-            noBtn.innerHTML = phrases[Math.min(count, phrases.length - 1)];
-            count++;
-            const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
-            yesBtn.style.fontSize = (currentSize + 2) + 'px';
-            yesBtn.style.padding = (currentSize + 5) + 'px';
-        }
-
-        function updateTimer() {
-            const startDate = new Date('2024-08-19T00:00:00');
-            const now = new Date();
-            const diff = now - startDate;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((diff / 1000 / 60) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
-            document.getElementById('timer').innerHTML = 
-                `<span class="timer-unit">${days}</span> dias, ` +
-                `<span class="timer-unit">${hours}</span>h, ` +
-                `<span class="timer-unit">${minutes}</span>m e ` +
-                `<span class="timer-unit">${seconds}</span>s`;
+            const x = yesRect.left + yesRect.width/2 + (Math.cos(noCount)* (150 + noCount*5)) - 50;
+            const y = yesRect.top + yesRect.height/2 + (Math.sin(noCount)* (150 + noCount*5)) - 25;
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+            const phrases = ["Não", "Certeza?", "Pensa bem", "Noop", "Tenta outra vez", "Diz que sim ❤️"];
+            noBtn.innerText = phrases[noCount % phrases.length];
+            noCount++;
+            yesBtn.style.transform = `scale(${1 + noCount*0.1})`;
         }
 
         function accepted() {
-            document.getElementById('question').innerHTML = "Sábia decisão! ❤️ Agora não há devoluções!";
-            document.getElementById('gif').src = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2oxdGRmampkNHJwcWg1bDJsOHprY3F6ZG5kOXVqZ2ZlM3VnZjhjaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LeiKWZ2NURcZYfyhoq/giphy.gif";
-            document.getElementById('buttonContainer').style.display = 'none';
+            document.getElementById('final-question').innerText = "Sábia decisão! ❤️ Agora não há devoluções!";
+            document.getElementById('final-gif').src = "https://i.giphy.com/media/KztT2c4u8mYYUiCiZ7/giphy.gif";
+            document.getElementById('final-btns').style.display = 'none';
             document.getElementById('contador').style.display = 'block';
-            updateTimer();
-            setInterval(updateTimer, 1000);
             document.getElementById('musica').play();
+            setInterval(updateTimer, 1000);
             setInterval(createHeart, 150);
         }
 
+        function updateTimer() {
+            const diff = new Date() - new Date('2024-08-19T00:00:00');
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff / 3600000) % 24);
+            const m = Math.floor((diff / 60000) % 60);
+            const s = Math.floor((diff / 1000) % 60);
+            document.getElementById('timer').innerHTML = `${d} dias, ${h}h, ${m}m e ${s}s`;
+        }
+
         function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.top = '-20px';
-            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
+            const h = document.createElement('div');
+            h.className = 'heart'; h.innerHTML = '❤️';
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            h.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 5000);
         }
     </script>
 </body>
