@@ -39,7 +39,9 @@
         @keyframes fall { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
         
         img { max-width: 250px; border-radius: 15px; margin-bottom: 10px; }
-        #redeemBtn { position: absolute; }
+        
+        /* Ajuste do botão Redeem */
+        #redeemBtn { position: relative; transition: 0.2s ease-out; }
     </style>
 </head>
 <body>
@@ -47,7 +49,7 @@
     <div id="sec-capa" class="section active">
         <h1>Tenho um desafio para ti... ❤️</h1>
         <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif">
-        <p>Estás pronta para o Teste de Aptidão de Namorada?</p>
+        <p>Estás preparada para o Teste de Aptidão de Namorada?</p>
         <button class="btn-pink" onclick="showSec('sec-quiz')">Estou pronta! 🚀</button>
     </div>
 
@@ -55,21 +57,20 @@
         <h2 id="quiz-title">Pergunta 1/10</h2>
         <h1 id="quiz-text">Quem manda na relação?</h1>
         <div id="quiz-media"></div>
-        <div class="buttons" id="quiz-btns">
-            </div>
+        <div class="buttons" id="quiz-btns"></div>
     </div>
 
     <div id="sec-redeem" class="section">
         <h1>Teste Concluído! Acertaste TUDO! 🎉</h1>
-        <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ21qNDRvYmZjbjJ1cGszeHM1OWN4OHR3ZTVnbzA1OTA5cGplanRmZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IwAZ6dvvvaTtdI8SD5/giphy.gif">
-        <div style="height: 200px; width: 100%; position: relative;">
+        <img id="redeemGif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYt5jRKzAFnMBe8/giphy.gif">
+        <div id="redeemArea" style="height: 150px; width: 100%; display: flex; justify-content: center; align-items: center;">
             <button id="redeemBtn" class="btn-green" onclick="handleRedeem()">REDEEM YOUR PRIZE 🎁</button>
         </div>
     </div>
 
     <div id="sec-vale" class="section">
         <h1>Surpresa! 👢</h1>
-        <div style="background: white; padding: 20px; border-radius: 20px; border: 3px dashed #d63384;">
+        <div style="background: white; padding: 20px; border-radius: 20px; border: 3px dashed #d63384; max-width: 80%;">
             <h2>Vale 1 par de botas</h2>
             <p>"Válido para o resto das nossas vidas" ❤️</p>
         </div>
@@ -108,8 +109,7 @@
             const text = document.getElementById('quiz-text');
             const btns = document.getElementById('quiz-btns');
             const media = document.getElementById('quiz-media');
-            btns.innerHTML = '';
-            media.innerHTML = '';
+            btns.innerHTML = ''; media.innerHTML = '';
 
             switch(currentStep) {
                 case 1:
@@ -117,10 +117,9 @@
                     text.innerText = quizSubStep === 0 ? "Quem manda na relação?" : (quizSubStep === 1 ? "Mentira..." : "Obviamente tu!");
                     createBtn(quizSubStep === 0 ? "Eu" : "Continuar", () => {
                         if(quizSubStep < 2) { quizSubStep++; renderQuiz(); }
-                        else { nextQ(); }
+                        else nextQ();
                     });
                     break;
-
                 case 2:
                     title.innerText = "Pergunta 2/10";
                     text.innerText = quizSubStep === 0 ? "O que fazer quando tenho fome?" : "ERRAADO! Tenho de correr pela vida porque só tenho 5 min para te dar comida!";
@@ -128,7 +127,6 @@
                     createBtn("Correr pela vida", () => { quizSubStep = 1; renderQuiz(); });
                     if(quizSubStep === 1) { btns.innerHTML = ''; createBtn("Entendido 🫡", nextQ); }
                     break;
-
                 case 3:
                     title.innerText = "Pergunta 3/10";
                     text.innerText = "Quem demora mais a arranjar-se?";
@@ -137,7 +135,6 @@
                         else nextQ();
                     });
                     break;
-
                 case 4:
                     title.innerText = "Pergunta 4/10";
                     const p4Texts = ["Roubar batatas do meu prato é...", "Tens a certeza?", "Mesmo mesmo mesmo?", "Joking... claro que podes tirar se eu não comer primeiro!"];
@@ -145,7 +142,6 @@
                     createBtn("Crime", () => { if(quizSubStep < 3) { quizSubStep++; renderQuiz(); } else nextQ(); });
                     if(quizSubStep === 0) createBtn("Direito teu ❤️", nextQ);
                     break;
-
                 case 5:
                     title.innerText = "Pergunta 5/10";
                     text.innerText = quizSubStep === 0 ? "Quem é o Ladrão de Cobertores?" : "Eu sei que eras incapaz, obviamente é um monstro!";
@@ -153,18 +149,15 @@
                     createBtn("Tu, todas as noites", () => { quizSubStep = 1; renderQuiz(); });
                     if(quizSubStep === 1) { btns.innerHTML = ''; createBtn("Pois é 😇", nextQ); }
                     break;
-
                 case 6:
                     title.innerText = "Pergunta 6/10 (Easter Egg!)";
                     text.innerText = quizSubStep === 0 ? "Quantas fotos até estares 'Instagramável'?" : "Não reparaste em nada? ❤️";
                     if(quizSubStep === 1) text.innerHTML += "<br><span style='font-size:40px'>19 / 08 / 2024</span>";
-                    
                     const btnDate = document.createElement('button');
                     btnDate.className = 'btn-pink';
                     btnDate.innerText = quizSubStep === 0 ? "19082024" : "Continuar";
                     btnDate.onclick = () => { if(quizSubStep === 0) { quizSubStep = 1; renderQuiz(); } else nextQ(); };
                     btns.appendChild(btnDate);
-
                     if(quizSubStep === 0) {
                         const btnErr = document.createElement('button');
                         btnErr.className = 'btn-red';
@@ -173,24 +166,19 @@
                         btns.appendChild(btnErr);
                     }
                     break;
-
                 case 7:
                     title.innerText = "Pergunta 7/10";
                     text.innerText = "Se eu fosse uma minhoca...";
                     if(quizSubStep === 1) {
                         text.innerText = "Tu és mesmo má! 🥺";
-                        media.innerHTML = '<img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2l3dmxkd3BqaGdpY2lkN2FpODI1Ym4wdGFhYjRid3M2MDVqZ25qZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/q0Fm9D20SCw5q/giphy.gif">';
+                        media.innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/v98L8wALXpS6Y/giphy.gif">';
                     }
                     if(quizSubStep === 2) text.innerText = "Acho bem! 🥰";
-                    
                     if(quizSubStep === 0) {
                         createBtn("Pisavas-me", () => { quizSubStep = 1; renderQuiz(); });
                         createBtn("Davas-me mimos", () => { quizSubStep = 2; renderQuiz(); });
-                    } else {
-                        createBtn("Continuar", nextQ);
-                    }
+                    } else createBtn("Continuar", nextQ);
                     break;
-
                 case 8:
                     title.innerText = "Pergunta 8/10";
                     text.innerText = quizSubStep === 0 ? "Qual é o meu melhor atributo?" : "Paciência de santo + O meu rabo (Combo Perfeito)";
@@ -198,13 +186,11 @@
                     createBtn("O meu rabo", () => { quizSubStep = 1; renderQuiz(); });
                     if(quizSubStep === 1) { btns.innerHTML = ''; createBtn("Concordo plenamente", nextQ); }
                     break;
-
                 case 9:
                     title.innerText = "Pergunta 9/10";
                     text.innerText = "Onde vamos jantar hoje?";
                     for(let i=0; i<4; i++) createBtn("McDonalds", nextQ);
                     break;
-
                 case 10:
                     title.innerText = "Pergunta 10/10";
                     text.innerText = "Estás pronta para a pergunta final?";
@@ -216,21 +202,38 @@
 
         function createBtn(txt, fn) {
             const b = document.createElement('button');
-            b.className = 'btn-pink';
-            b.innerText = txt;
-            b.onclick = fn;
+            b.className = 'btn-pink'; b.innerText = txt; b.onclick = fn;
             document.getElementById('quiz-btns').appendChild(b);
         }
 
         function nextQ() { currentStep++; quizSubStep = 0; renderQuiz(); }
 
+        // AJUSTE: LÓGICA DO REDEEM PARA FUGIR À VOLTA DO GIF
         function handleRedeem() {
             const btn = document.getElementById('redeemBtn');
+            const gif = document.getElementById('redeemGif');
+
             if(fleeCount < 20) {
-                const x = Math.random() * (window.innerWidth - 200);
-                const y = Math.random() * (window.innerHeight - 100);
-                btn.style.left = x + 'px';
-                btn.style.top = y + 'px';
+                // Obtém o centro do GIF como referência
+                const rect = gif.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                // Gera um ângulo e raio aleatórios, mas perto do centro
+                const angle = Math.random() * 2 * Math.PI;
+                const radius = 120 + Math.random() * 80; // Entre 120 e 200px de distância
+
+                const newX = centerX + Math.cos(angle) * radius - (btn.offsetWidth / 2);
+                const newY = centerY + Math.sin(angle) * radius - (btn.offsetHeight / 2);
+
+                // Garante que não sai das bordas do ecrã caso o ecrã seja muito pequeno
+                const safeX = Math.max(20, Math.min(newX, window.innerWidth - btn.offsetWidth - 20));
+                const safeY = Math.max(20, Math.min(newY, window.innerHeight - btn.offsetHeight - 20));
+
+                btn.style.position = 'fixed';
+                btn.style.left = safeX + 'px';
+                btn.style.top = safeY + 'px';
+                
                 fleeCount++;
             } else {
                 btn.innerText = "OK, JÁ CHEGA! VER PRÉMIO";
@@ -247,14 +250,16 @@
             const yesBtn = document.getElementById('yesBtn');
             noBtn.style.position = 'fixed';
             const yesRect = yesBtn.getBoundingClientRect();
-            const x = yesRect.left + yesRect.width/2 + (Math.cos(noCount)* (150 + noCount*5)) - 50;
-            const y = yesRect.top + yesRect.height/2 + (Math.sin(noCount)* (150 + noCount*5)) - 25;
+            const angle = noCount * 0.8; 
+            const radius = 150 + noCount * 5;
+            const x = yesRect.left + yesRect.width/2 + Math.cos(angle) * radius - 50;
+            const y = yesRect.top + yesRect.height/2 + Math.sin(angle) * radius - 25;
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
             const phrases = ["Não", "Certeza?", "Pensa bem", "Noop", "Tenta outra vez", "Diz que sim ❤️"];
             noBtn.innerText = phrases[noCount % phrases.length];
             noCount++;
-            yesBtn.style.transform = `scale(${1 + noCount*0.1})`;
+            yesBtn.style.transform = `scale(${1 + noCount * 0.1})`;
         }
 
         function accepted() {
@@ -280,6 +285,7 @@
             const h = document.createElement('div');
             h.className = 'heart'; h.innerHTML = '❤️';
             h.style.left = Math.random() * 100 + 'vw';
+            h.style.top = '-20px';
             h.style.fontSize = (Math.random() * 20 + 10) + 'px';
             h.style.animationDuration = (Math.random() * 2 + 3) + 's';
             document.body.appendChild(h);
