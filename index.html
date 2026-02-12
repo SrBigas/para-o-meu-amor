@@ -12,6 +12,10 @@
         }
         h1 { color: #d63384; transition: 0.5s; z-index: 1; padding: 0 20px; }
         
+        /* Containers de Secções */
+        .section { display: none; flex-direction: column; align-items: center; width: 100%; }
+        .active { display: flex; }
+
         .buttons { 
             display: flex; justify-content: center; align-items: center; 
             gap: 20px; margin-top: 20px; width: 100%; height: 150px; position: relative;
@@ -23,20 +27,14 @@
             z-index: 2;
         }
 
+        .btn-next { background-color: #ff4d4d; color: white; margin-top: 20px; }
         #yesBtn { background-color: #4caf50; color: white; transform: scale(1.1); }
         #noBtn { background-color: #f44336; color: white; position: relative; }
 
-        /* Estilo do Contador */
         #contador {
-            display: none;
-            margin-top: 20px;
-            font-size: 1.2rem;
-            color: #d63384;
-            background: rgba(255, 255, 255, 0.5);
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            z-index: 1;
+            display: none; margin-top: 20px; font-size: 1.2rem; color: #d63384;
+            background: rgba(255, 255, 255, 0.5); padding: 20px; border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 1;
         }
 
         .timer-unit { font-weight: bold; font-size: 1.5rem; }
@@ -49,28 +47,78 @@
             to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
         
-        img { z-index: 1; max-width: 80%; border-radius: 15px; }
+        img { z-index: 1; max-width: 80%; border-radius: 15px; margin-bottom: 10px; }
+        .quiz-container { max-width: 500px; padding: 20px; }
     </style>
 </head>
 <body>
 
-    <h1 id="question">Queres ser a minha Valentine? ❤️</h1>
-    
-    <img id="gif" src="https://i.giphy.com/media/cLS1cfxvGOPVpf9g3y/giphy.gif" width="200">
-
-    <div class="buttons" id="buttonContainer">
-        <button id="yesBtn" onclick="accepted()">SIM</button>
-        <button id="noBtn" onclick="moveButton()">NÃO</button>
+    <div id="section-capa" class="section active">
+        <h1>Tenho um desafio para ti... ❤️</h1>
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" width="200">
+        <p>Estás preparada para o Teste de Aptidão de Namorada?</p>
+        <button class="btn-next" onclick="nextSection('section-quiz')">Estou pronta! 🚀</button>
     </div>
 
-    <div id="contador">
-        <p>Já estamos juntos há:</p>
-        <div id="timer"></div>
+    <div id="section-quiz" class="section">
+        <h2 id="quiz-question-number" style="color: #d63384;">Pergunta 1/10</h2>
+        <h1 id="quiz-question-text">Quem manda na relação?</h1>
+        <div class="buttons">
+            <button onclick="nextQuestion()" style="background-color: #ff85a2; color: white;" id="optA">Eu (mentira)</button>
+            <button onclick="nextQuestion()" style="background-color: #ff85a2; color: white;" id="optB">Tu (obviamente)</button>
+        </div>
+    </div>
+
+    <div id="section-pedido" class="section">
+        <h1 id="question">Queres ser a minha Valentine? ❤️</h1>
+        <img id="gif" src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" width="200">
+        <div class="buttons" id="buttonContainer">
+            <button id="yesBtn" onclick="accepted()">SIM</button>
+            <button id="noBtn" onclick="moveButton()">NÃO</button>
+        </div>
+        <div id="contador">
+            <p>Já estamos juntos há:</p>
+            <div id="timer"></div>
+        </div>
     </div>
 
     <audio id="musica" src="https://www.myinstants.com/media/sounds/careless-whisper-chorus.mp3"></audio>
 
     <script>
+        // CONFIGURAÇÃO DO QUIZ
+        const questions = [
+            { q: "Quem manda na relação?", a: "Eu (mentira)", b: "Tu (obviamente)" },
+            { q: "O que fazer quando tenho fome?", a: "Dar comida em 5 min", b: "Correr pela vida" },
+            { q: "Quem demora mais a arranjar-se?", a: "Tu", b: "Tu, mas eu espero" },
+            { q: "Roubar batatas do meu prato é...", a: "Crime federal", b: "Direito teu ❤️" },
+            { q: "Quem é o Ladrão de Cobertores?", a: "Um monstro", b: "Tu, todas as noites" },
+            { q: "Quantas fotos até estares 'Instagramável'?", a: "537 fotos", b: "Até acabar a bateria" },
+            { q: "Se eu fosse uma minhoca...", a: "Pisavas-me", b: "Davas-me mimos" },
+            { q: "Qual é o meu melhor atributo?", a: "Paciência de santo", b: "O meu rabo" },
+            { q: "Onde vamos jantar hoje?", a: "Onde tu quiseres", b: "Onde tu quiseres (eu pago)" },
+            { q: "Estás pronta para a pergunta final?", a: "Sim!", b: "Sim, por favor!" }
+        ];
+
+        let currentQ = 0;
+
+        function nextQuestion() {
+            currentQ++;
+            if (currentQ < questions.length) {
+                document.getElementById('quiz-question-number').innerHTML = `Pergunta ${currentQ + 1}/10`;
+                document.getElementById('quiz-question-text').innerHTML = questions[currentQ].q;
+                document.getElementById('optA').innerHTML = questions[currentQ].a;
+                document.getElementById('optB').innerHTML = questions[currentQ].b;
+            } else {
+                nextSection('section-pedido');
+            }
+        }
+
+        function nextSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        // LÓGICA DO PEDIDO (O QUE JÁ TINHAS)
         const phrases = [
             "Não", "Tens a certeza?", "Pensa bem...", "Vais meter que não outra vez?", 
             "Nooooop", "Tenta outra vez", "Diz que sim, amor! ❤️", 
@@ -85,39 +133,30 @@
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
             noBtn.style.position = 'fixed';
-
             const yesRect = yesBtn.getBoundingClientRect();
             const yesCenterX = yesRect.left + yesRect.width / 2;
             const yesCenterY = yesRect.top + yesRect.height / 2;
-
             const radius = 150 + (count * 5); 
             const angle = Math.random() * 2 * Math.PI;
-
             const newX = yesCenterX + Math.cos(angle) * radius - (noBtn.offsetWidth / 2);
             const newY = yesCenterY + Math.sin(angle) * radius - (noBtn.offsetHeight / 2);
-
             noBtn.style.left = newX + 'px';
             noBtn.style.top = newY + 'px';
-
             noBtn.innerHTML = phrases[Math.min(count, phrases.length - 1)];
             count++;
-
             const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
             yesBtn.style.fontSize = (currentSize + 2) + 'px';
             yesBtn.style.padding = (currentSize + 5) + 'px';
         }
 
-        // FUNÇÃO DO CONTADOR
         function updateTimer() {
-            const startDate = new Date('2024-08-19T00:00:00'); // Tua data de namoro
+            const startDate = new Date('2024-08-19T00:00:00');
             const now = new Date();
             const diff = now - startDate;
-
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
             const minutes = Math.floor((diff / 1000 / 60) % 60);
             const seconds = Math.floor((diff / 1000) % 60);
-
             document.getElementById('timer').innerHTML = 
                 `<span class="timer-unit">${days}</span> dias, ` +
                 `<span class="timer-unit">${hours}</span>h, ` +
@@ -127,19 +166,12 @@
 
         function accepted() {
             document.getElementById('question').innerHTML = "Sábia decisão! ❤️ Agora não há devoluções!";
-            
-            // LINK DO GIF FINAL CORRIGIDO
-            document.getElementById('gif').src = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2oxdGRmampkNHJwcWg1bDJsOHprY3F6ZG5kOXVqZ2ZlM3VnZjhjaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LeiKWZ2NURcZYfyhoq/giphy.gif";
-            
+            document.getElementById('gif').src = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2oxdGRmampkNHJwcWg1bDJsOHprY3F6ZG5kOXVqZ2ZlM3VnZjhjaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LeiKWZ2NURcZYfyhoq/giphy.gif";
             document.getElementById('buttonContainer').style.display = 'none';
             document.getElementById('contador').style.display = 'block';
-            
             updateTimer();
             setInterval(updateTimer, 1000);
-
-            const musica = document.getElementById('musica');
-            musica.play();
-
+            document.getElementById('musica').play();
             setInterval(createHeart, 150);
         }
 
