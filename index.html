@@ -137,10 +137,7 @@
                     title.innerText = "Pergunta 4/10";
                     const p4Texts = ["Roubar batatas do meu prato é...", "Tens a certeza?", "Mesmo mesmo mesmo?", "Joking... claro que podes tirar se eu não comer primeiro!"];
                     text.innerText = p4Texts[quizSubStep];
-                    
-                    // CORREÇÃO AQUI: O texto do botão muda no último passo
                     let label = (quizSubStep === 3) ? "Muito bem ❤️" : "Crime";
-                    
                     createBtn(label, () => { 
                         if(quizSubStep < 3) { quizSubStep++; renderQuiz(); } 
                         else nextQ(); 
@@ -158,17 +155,24 @@
                     title.innerText = "Pergunta 6/10 (Easter Egg!)";
                     text.innerText = quizSubStep === 0 ? "Quantas fotos até estares 'Instagramável'?" : "Não reparaste em nada? ❤️";
                     if(quizSubStep === 1) text.innerHTML += "<br><span style='font-size:40px'>19 / 08 / 2024</span>";
+                    
+                    // Botão Correto: 19082024
                     const btnDate = document.createElement('button');
                     btnDate.className = 'btn-pink';
-                    btnDate.innerText = quizSubStep === 0 ? "19082024" : "Continuar";
-                    btnDate.onclick = () => { if(quizSubStep === 0) { quizSubStep = 1; renderQuiz(); } else nextQ(); };
+                    btnDate.innerText = quizSubStep === 0 ? "19082024 fotos" : "Continuar";
+                    btnDate.onclick = () => { 
+                        if(quizSubStep === 0) { quizSubStep = 1; renderQuiz(); } 
+                        else nextQ(); 
+                    };
                     btns.appendChild(btnDate);
+
+                    // Botão Estático: Não faz nada (apenas para confundir)
                     if(quizSubStep === 0) {
-                        const btnErr = document.createElement('button');
-                        btnErr.className = 'btn-red';
-                        btnErr.innerText = "Até acabar a bateria";
-                        btnErr.onmouseover = () => btnErr.style.display = 'none';
-                        btns.appendChild(btnErr);
+                        const btnStatic = document.createElement('button');
+                        btnStatic.className = 'btn-red';
+                        btnStatic.innerText = "Até o telemóvel ficar sem bateria";
+                        btnStatic.onclick = () => { /* Não faz nada */ };
+                        btns.appendChild(btnStatic);
                     }
                     break;
                 case 7:
