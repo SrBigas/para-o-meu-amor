@@ -39,8 +39,6 @@
         @keyframes fall { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
         
         img { max-width: 250px; border-radius: 15px; margin-bottom: 10px; }
-        
-        /* Ajuste do botão Redeem */
         #redeemBtn { position: relative; transition: 0.2s ease-out; }
     </style>
 </head>
@@ -139,7 +137,14 @@
                     title.innerText = "Pergunta 4/10";
                     const p4Texts = ["Roubar batatas do meu prato é...", "Tens a certeza?", "Mesmo mesmo mesmo?", "Joking... claro que podes tirar se eu não comer primeiro!"];
                     text.innerText = p4Texts[quizSubStep];
-                    createBtn("Crime", () => { if(quizSubStep < 3) { quizSubStep++; renderQuiz(); } else nextQ(); });
+                    
+                    // CORREÇÃO AQUI: O texto do botão muda no último passo
+                    let label = (quizSubStep === 3) ? "Muito bem ❤️" : "Crime";
+                    
+                    createBtn(label, () => { 
+                        if(quizSubStep < 3) { quizSubStep++; renderQuiz(); } 
+                        else nextQ(); 
+                    });
                     if(quizSubStep === 0) createBtn("Direito teu ❤️", nextQ);
                     break;
                 case 5:
@@ -208,32 +213,22 @@
 
         function nextQ() { currentStep++; quizSubStep = 0; renderQuiz(); }
 
-        // AJUSTE: LÓGICA DO REDEEM PARA FUGIR À VOLTA DO GIF
         function handleRedeem() {
             const btn = document.getElementById('redeemBtn');
             const gif = document.getElementById('redeemGif');
-
             if(fleeCount < 20) {
-                // Obtém o centro do GIF como referência
                 const rect = gif.getBoundingClientRect();
                 const centerX = rect.left + rect.width / 2;
                 const centerY = rect.top + rect.height / 2;
-
-                // Gera um ângulo e raio aleatórios, mas perto do centro
                 const angle = Math.random() * 2 * Math.PI;
-                const radius = 120 + Math.random() * 80; // Entre 120 e 200px de distância
-
+                const radius = 120 + Math.random() * 80;
                 const newX = centerX + Math.cos(angle) * radius - (btn.offsetWidth / 2);
                 const newY = centerY + Math.sin(angle) * radius - (btn.offsetHeight / 2);
-
-                // Garante que não sai das bordas do ecrã caso o ecrã seja muito pequeno
                 const safeX = Math.max(20, Math.min(newX, window.innerWidth - btn.offsetWidth - 20));
                 const safeY = Math.max(20, Math.min(newY, window.innerHeight - btn.offsetHeight - 20));
-
                 btn.style.position = 'fixed';
                 btn.style.left = safeX + 'px';
                 btn.style.top = safeY + 'px';
-                
                 fleeCount++;
             } else {
                 btn.innerText = "OK, JÁ CHEGA! VER PRÉMIO";
@@ -243,7 +238,6 @@
             }
         }
 
-        // LÓGICA FINAL (SATELLITE NO BUTTON)
         let noCount = 0;
         function moveNoButton() {
             const noBtn = document.getElementById('noBtn');
