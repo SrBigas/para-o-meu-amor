@@ -61,7 +61,7 @@
 
     <div id="sec-capa" class="section active">
         <h1>Tenho um desafio para ti... ❤️</h1>
-        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif">
+        <img src="https://media.giphy.com/media/cLS1cfxvGOPVpf9g3y/giphy.gif">
         <p>Estás preparada para o Teste de Aptidão de Namorada?</p>
         <button class="btn-pink" onclick="showSec('sec-quiz')">Estou pronta! 🚀</button>
     </div>
@@ -75,7 +75,7 @@
 
     <div id="sec-redeem" class="section">
         <h1>Teste Concluído! Acertaste TUDO! 🎉</h1>
-        <img id="redeemGif" src="https://i.giphy.com/media/IwAZ6dvvvaTtdI8SD5/giphy.gif">
+        <img id="redeemGif" src="https://media.giphy.com/media/IwAZ6dvvvaTtdI8SD5/giphy.gif">
         <div id="redeemArea" style="height: 150px; width: 100%; display: flex; justify-content: center; align-items: center;">
             <button id="redeemBtn" class="btn-green" onclick="handleRedeem()">REDEEM YOUR PRIZE 🎁</button>
         </div>
@@ -83,31 +83,21 @@
 
     <div id="sec-stop" class="section">
         <h1>PARA TUDO! ✋</h1>
-        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2s1eGJnODFoZzJ1anMwMDY0eDF2bGF0dDJyd2poejQxcm1rendvcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/HIWNaM05qJAENE1TJM/giphy.gif">
+        <img src="https://media.giphy.com/media/HIWNaM05qJAENE1TJM/giphy.gif">
         <p>Antes da tua primeira prenda...</p>
         <button class="btn-pink" onclick="showSec('sec-letter')">O que foi? 🥺</button>
     </div>
 
     <div id="sec-letter" class="section">
         <h1>Uma coisinha primeiro... 💌</h1>
-        <div class="love-letter">
+        <div class="love-letter" style="text-align: center;">
             <p>
-                Meu amor, tu és tudo para mim. ❤️
-
-Eu sei que os últimos tempos não têm sido nada fáceis e que o teu coração está cheio de dúvidas e inseguranças. Queria usar este cantinho só nosso para te dizer uma coisa, e quero que a leias com toda a certeza do mundo: tu nunca foste, nem nunca serás, a segunda opção de nada.
-
-Desde o primeiro momento em que apareceste e viraste o meu mundo do avesso, a porta fechou-se para o resto do mundo. 🌍 Nunca houve portas entreabertas nem planos paralelos, porque tu preencheste tudo. Foste tu que me mostraste o que é o amor verdadeiro, e foste a melhor coisa que me aconteceu.
-
-Custa-me muito saber que não soube proteger o nosso início como tu merecias e que te fiz chorar, mas quero que saibas que estou aqui, de pedra e cal, a lutar por nós. Quero mostrar-te, todos os dias e com as minhas atitudes, que és a minha prioridade absoluta. Quero dar-te a segurança que mereces e reconstruir tudo contigo, tijolo a tijolo. 🧱❤️
-
-Fiz esta brincadeira do site hoje só porque a minha principal missão é ver esse teu sorriso lindo. E custa tanto vir embora de tua casa... mal saio de lá, já só estou a contar os minutos para a próxima vez que te vou abraçar. 🥺
-
-Leva o tempo que precisares, meu amor. Eu não vou a lado nenhum. A única pessoa com quem eu quero "recomeçar", hoje e sempre, é contigo. És perfeita, única, e o grande amor da minha vida.
-
-Amo-te muito! 👩‍❤️‍👨✨
+                Como este site não dá para guardar numa gaveta... <br><br>
+                <strong>Abre o envelope que te acabei de dar.</strong><br><br>
+                Lê com calma. Eu espero aqui. ❤️
             </p>
         </div>
-        <button class="btn-pink" onclick="showSec('sec-vale')">Ver a surpresa 🎁</button>
+        <button class="btn-pink" onclick="showSec('sec-vale')">Já li (e limpei as lágrimas 🥺) 🎁</button>
     </div>
 
     <div id="sec-vale" class="section">
@@ -122,7 +112,7 @@ Amo-te muito! 👩‍❤️‍👨✨
 
     <div id="sec-final" class="section">
         <h1 id="final-question">Queres ser a minha Valentine? ❤️</h1>
-        <img id="final-gif" src="https://i.giphy.com/media/cLS1cfxvGOPVpf9g3y/giphy.gif">
+        <img id="final-gif" src="https://media.giphy.com/media/cLS1cfxvGOPVpf9g3y/giphy.gif">
         <div class="buttons" id="final-btns">
             <button id="yesBtn" class="btn-green" onclick="accepted()">SIM</button>
             <button id="noBtn" class="btn-red" onclick="moveNoButton()">NÃO</button>
@@ -225,7 +215,7 @@ Amo-te muito! 👩‍❤️‍👨✨
                     text.innerText = "Se eu fosse uma minhoca...";
                     if(quizSubStep === 1) {
                         text.innerText = "Tu és mesmo má! 🥺";
-                        media.innerHTML = '<img src="https://i.giphy.com/media/q0Fm9D20SCw5q/giphy.gif">';
+                        media.innerHTML = '<img src="https://media.giphy.com/media/q0Fm9D20SCw5q/giphy.gif">';
                     }
                     if(quizSubStep === 2) text.innerText = "Acho bem! 🥰";
                     if(quizSubStep === 0) {
@@ -245,10 +235,10 @@ Amo-te muito! 👩‍❤️‍👨✨
                 case 9:
                     title.innerText = "Pergunta 9/10";
                     const mcGifs = [
-                        "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXU5aXNmbThxYmN5dXhybnJxZGpqZmZpZHQ3MDBidTRnZXllZTZ6ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Qtj9HpyAyRvQclo3Ka/giphy.gif",
-                        "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmhqNHh0d2JwYjhkbnpsNm50Z240NjJzeHA2MXo1a2YwMTF2c2s2ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WtCHRSPCuqS8E/giphy.gif",
-                        "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmg5OW1lbHM0c3dydGQ1MGd3em12bDJ2YmxwdjVuN3l6ZXE2MmR3YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MNK7GFgKMQmHu/giphy.gif",
-                        "https://i.giphy.com/media/AwydQR7iziW4keNi42/giphy.gif"
+                        "https://media.giphy.com/media/Qtj9HpyAyRvQclo3Ka/giphy.gif",
+                        "https://media.giphy.com/media/WtCHRSPCuqS8E/giphy.gif",
+                        "https://media.giphy.com/media/MNK7GFgKMQmHu/giphy.gif",
+                        "https://media.giphy.com/media/AwydQR7iziW4keNi42/giphy.gif"
                     ];
                     const mcTexts = ["Onde vamos jantar hoje?", "E se o primeiro estiver cheio?", "Vamos a outro sitio?", "Claro que é Mc, é a nossa comida de dia de namorados!"];
                     text.innerText = mcTexts[quizSubStep];
@@ -264,10 +254,10 @@ Amo-te muito! 👩‍❤️‍👨✨
                         createBtn("Eu", () => { quizSubStep = 1; renderQuiz(); });
                         createBtn("A minha baby", () => { quizSubStep = 2; renderQuiz(); });
                     } else if (quizSubStep === 1) {
-                        media.innerHTML = '<img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOW5lcGY2cTlkbzBlNHF1MXJhbnV2cnIwNnVsdGs4enowcGsyamtlNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LFvQBWwKk7Qc0/giphy.gif">';
+                        media.innerHTML = '<img src="https://media.giphy.com/media/LFvQBWwKk7Qc0/giphy.gif">';
                         createBtn("Continuar", () => showSec('sec-redeem'));
                     } else {
-                        media.innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/yFQ0ywscgobJK/giphy.gif">';
+                        media.innerHTML = '<img src="https://media.giphy.com/media/yFQ0ywscgobJK/giphy.gif">';
                         createBtn("Acho bem ❤️", () => showSec('sec-redeem'));
                     }
                     break;
@@ -302,7 +292,6 @@ Amo-te muito! 👩‍❤️‍👨✨
                 btn.innerText = "OK, JÁ CHEGA! VER PRÉMIO";
                 btn.style.position = 'relative';
                 btn.style.left = '0'; btn.style.top = '0';
-                // ALTERAÇÃO AQUI: VAI PARA A SECÇÃO "STOP" E NÃO DIRETO PARA "VALE"
                 btn.onclick = () => showSec('sec-stop');
             }
         }
@@ -326,7 +315,10 @@ Amo-te muito! 👩‍❤️‍👨✨
 
         function accepted() {
             document.getElementById('final-question').innerText = "Sábia decisão! ❤️ Agora não há devoluções!";
-            document.getElementById('final-gif').src = "https://i.giphy.com/media/KztT2c4u8mYYUiCiZ7/giphy.gif";
+            
+            // GIF FINAL CORRIGIDO PARA UM MAIS ESTÁVEL DE DOIS URSINHOS A ABRAÇAREM-SE PARA NÃO DAR ERRO
+            document.getElementById('final-gif').src = "https://media.tenor.com/J1D1d48x1qIAAAAi/tkthao219-bubududu.gif";
+            
             document.getElementById('final-btns').style.display = 'none';
             document.getElementById('contador').style.display = 'block';
             document.getElementById('musica').play();
