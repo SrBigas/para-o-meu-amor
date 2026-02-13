@@ -151,15 +151,22 @@
                     createBtn("Tu, todas as noites", () => { quizSubStep = 1; renderQuiz(); });
                     if(quizSubStep === 1) { btns.innerHTML = ''; createBtn("Pois é 😇", nextQ); }
                     break;
+                
+                // --- PERGUNTA 6 CORRIGIDA (DATA 17/08/2024) ---
                 case 6:
                     title.innerText = "Pergunta 6/10 (Easter Egg!)";
                     text.innerText = quizSubStep === 0 ? "Quantas fotos tenho que tirar até uma ficar digna de instagram? 😂" : "Não reparaste em nada? ❤️";
-                    if(quizSubStep === 1) text.innerHTML += "<br><span style='font-size:40px'>19 / 08 / 2024</span>";
+                    if(quizSubStep === 1) text.innerHTML += "<br><span style='font-size:40px'>17 / 08 / 2024</span>";
+                    
                     const btnDate = document.createElement('button');
                     btnDate.className = 'btn-pink';
-                    btnDate.innerText = quizSubStep === 0 ? "19082024 fotos" : "Continuar";
-                    btnDate.onclick = () => { if(quizSubStep === 0) { quizSubStep = 1; renderQuiz(); } else nextQ(); };
+                    btnDate.innerText = quizSubStep === 0 ? "17082024 fotos" : "Continuar";
+                    btnDate.onclick = () => { 
+                        if(quizSubStep === 0) { quizSubStep = 1; renderQuiz(); } 
+                        else nextQ(); 
+                    };
                     btns.appendChild(btnDate);
+
                     if(quizSubStep === 0) {
                         const btnStatic = document.createElement('button');
                         btnStatic.className = 'btn-pink';
@@ -168,6 +175,7 @@
                         btns.appendChild(btnStatic);
                     }
                     break;
+                
                 case 7:
                     title.innerText = "Pergunta 7/10";
                     text.innerText = "Se eu fosse uma minhoca...";
@@ -201,8 +209,6 @@
                     media.innerHTML = `<img src="${mcGifs[quizSubStep]}">`;
                     createBtn("McDonalds", () => { if(quizSubStep < 3) { quizSubStep++; renderQuiz(); } else nextQ(); });
                     break;
-                
-                // --- NOVA PERGUNTA 10: OS PEIDOS ---
                 case 10:
                     title.innerText = "Pergunta 10/10";
                     text.innerText = quizSubStep === 0 ? "Quem se peida mais?" : (quizSubStep === 1 ? "Pois é, admito... 💨" : "Mentira! Eu sei que não te peidas, és uma princesa! 👑");
@@ -280,8 +286,9 @@
             setInterval(createHeart, 150);
         }
 
+        // --- CONTADOR CORRIGIDO (DATA 17/08/2024) ---
         function updateTimer() {
-            const diff = new Date() - new Date('2024-08-19T00:00:00');
+            const diff = new Date() - new Date('2024-08-17T00:00:00');
             const d = Math.floor(diff / 86400000);
             const h = Math.floor((diff / 3600000) % 24);
             const m = Math.floor((diff / 60000) % 60);
