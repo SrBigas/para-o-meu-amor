@@ -40,6 +40,21 @@
         
         img { max-width: 250px; border-radius: 15px; margin-bottom: 10px; }
         #redeemBtn { position: relative; transition: 0.2s ease-out; }
+
+        /* Estilo da Carta */
+        .love-letter {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 80%;
+            font-family: 'Arial', sans-serif;
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            border: 1px solid #ffccd5;
+        }
     </style>
 </head>
 <body>
@@ -64,6 +79,25 @@
         <div id="redeemArea" style="height: 150px; width: 100%; display: flex; justify-content: center; align-items: center;">
             <button id="redeemBtn" class="btn-green" onclick="handleRedeem()">REDEEM YOUR PRIZE 🎁</button>
         </div>
+    </div>
+
+    <div id="sec-stop" class="section">
+        <h1>PARA TUDO! ✋</h1>
+        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2s1eGJnODFoZzJ1anMwMDY0eDF2bGF0dDJyd2poejQxcm1rendvcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/HIWNaM05qJAENE1TJM/giphy.gif">
+        <p>Antes da tua primeira prenda...</p>
+        <button class="btn-pink" onclick="showSec('sec-letter')">O que foi? 🥺</button>
+    </div>
+
+    <div id="sec-letter" class="section">
+        <h1>Uma coisinha primeiro... 💌</h1>
+        <div class="love-letter">
+            <p>
+                Meu amor, este quiz foi só uma brincadeira para te ver sorrir. <br><br>
+                Sabes que és a pessoa mais especial do mundo para mim e que todos os dias ao teu lado são o meu verdadeiro prémio. <br><br>
+                Amo-te muito! ❤️
+            </p>
+        </div>
+        <button class="btn-pink" onclick="showSec('sec-vale')">Ver a surpresa 🎁</button>
     </div>
 
     <div id="sec-vale" class="section">
@@ -176,13 +210,11 @@
                     }
                     break;
                 
-                // --- PERGUNTA 7 (GIF MINHOCA ATUALIZADO) ---
                 case 7:
                     title.innerText = "Pergunta 7/10";
                     text.innerText = "Se eu fosse uma minhoca...";
                     if(quizSubStep === 1) {
                         text.innerText = "Tu és mesmo má! 🥺";
-                        // GIF ATUALIZADO AQUI
                         media.innerHTML = '<img src="https://i.giphy.com/media/q0Fm9D20SCw5q/giphy.gif">';
                     }
                     if(quizSubStep === 2) text.innerText = "Acho bem! 🥰";
@@ -200,14 +232,12 @@
                     if(quizSubStep === 1) { btns.innerHTML = ''; createBtn("Concordo plenamente", nextQ); }
                     break;
 
-                // --- PERGUNTA 9 (GIF MC ATUALIZADO) ---
                 case 9:
                     title.innerText = "Pergunta 9/10";
                     const mcGifs = [
                         "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXU5aXNmbThxYmN5dXhybnJxZGpqZmZpZHQ3MDBidTRnZXllZTZ6ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Qtj9HpyAyRvQclo3Ka/giphy.gif",
                         "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmhqNHh0d2JwYjhkbnpsNm50Z240NjJzeHA2MXo1a2YwMTF2c2s2ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WtCHRSPCuqS8E/giphy.gif",
                         "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmg5OW1lbHM0c3dydGQ1MGd3em12bDJ2YmxwdjVuN3l6ZXE2MmR3YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MNK7GFgKMQmHu/giphy.gif",
-                        // GIF ATUALIZADO AQUI
                         "https://i.giphy.com/media/AwydQR7iziW4keNi42/giphy.gif"
                     ];
                     const mcTexts = ["Onde vamos jantar hoje?", "E se o primeiro estiver cheio?", "Mas eu queria variar um bocado...", "Ok, última tentativa!"];
@@ -216,7 +246,6 @@
                     createBtn("McDonalds", () => { if(quizSubStep < 3) { quizSubStep++; renderQuiz(); } else nextQ(); });
                     break;
                 
-                // --- PERGUNTA 10 (GIF PEIDO ATUALIZADO) ---
                 case 10:
                     title.innerText = "Pergunta 10/10";
                     text.innerText = quizSubStep === 0 ? "Quem se peida mais?" : (quizSubStep === 1 ? "Pois é, admito... 💨" : "Mentira! Eu sei que não te peidas, és uma princesa! 👑");
@@ -225,7 +254,6 @@
                         createBtn("Eu", () => { quizSubStep = 1; renderQuiz(); });
                         createBtn("A minha baby", () => { quizSubStep = 2; renderQuiz(); });
                     } else if (quizSubStep === 1) {
-                        // GIF ATUALIZADO AQUI
                         media.innerHTML = '<img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOW5lcGY2cTlkbzBlNHF1MXJhbnV2cnIwNnVsdGs4enowcGsyamtlNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LFvQBWwKk7Qc0/giphy.gif">';
                         createBtn("Continuar", () => showSec('sec-redeem'));
                     } else {
@@ -264,7 +292,8 @@
                 btn.innerText = "OK, JÁ CHEGA! VER PRÉMIO";
                 btn.style.position = 'relative';
                 btn.style.left = '0'; btn.style.top = '0';
-                btn.onclick = () => showSec('sec-vale');
+                // ALTERAÇÃO AQUI: VAI PARA A SECÇÃO "STOP" E NÃO DIRETO PARA "VALE"
+                btn.onclick = () => showSec('sec-stop');
             }
         }
 
@@ -295,7 +324,6 @@
             setInterval(createHeart, 150);
         }
 
-        // --- CONTADOR CORRIGIDO (DATA 17/08/2024) ---
         function updateTimer() {
             const diff = new Date() - new Date('2024-08-17T00:00:00');
             const d = Math.floor(diff / 86400000);
