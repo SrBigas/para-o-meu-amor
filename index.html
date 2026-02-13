@@ -32,6 +32,7 @@
         #contador {
             display: none; margin-top: 20px; font-size: 1.1rem; color: #d63384;
             background: rgba(255, 255, 255, 0.6); padding: 15px; border-radius: 20px;
+            z-index: 2; position: relative;
         }
 
         .timer-unit { font-weight: bold; font-size: 1.3rem; }
@@ -61,6 +62,12 @@
             font-size: 0.7rem; color: #888; margin-top: 15px; 
             font-style: italic; max-width: 85%; line-height: 1.2;
             z-index: 2; position: relative;
+        }
+
+        /* NOVO: Estilo da Mensagem Final */
+        #final-msg {
+            display: none; margin-top: 20px; font-size: 1.2rem; color: #d63384; 
+            font-weight: bold; z-index: 2; position: relative; padding: 0 20px; line-height: 1.5;
         }
     </style>
 </head>
@@ -140,6 +147,10 @@
             <p>Já estamos juntos há:</p>
             <div id="timer"></div>
         </div>
+        <div id="final-msg">
+            I love you so much! ❤️<br><br>
+            Obrigado por seres a minha parceira, a minha melhor amiga e a dona do meu coração. Prometo cuidar de ti e ser o teu porto seguro para o resto das nossas vidas. És tudo para mim! ✨
+        </div>
     </div>
 
     <audio id="musica" src="https://www.myinstants.com/media/sounds/careless-whisper-chorus.mp3"></audio>
@@ -156,7 +167,6 @@
             
             if(id === 'sec-quiz') renderQuiz();
             
-            // Inicia balões na secção do vale e pára quando ela avança
             if(id === 'sec-vale') {
                  balloonInterval = setInterval(createBalloon, 300);
             } else {
@@ -252,7 +262,7 @@
                     text.innerText = "Se eu fosse uma minhoca...";
                     if(quizSubStep === 1) {
                         text.innerText = "Tu és mesmo má! 🥺";
-                        media.innerHTML = '<img src="https://media.giphy.com/media/q0Fm9D20SCw5q/giphy.gif">';
+                        media.innerHTML = '<img src="https://i.giphy.com/media/q0Fm9D20SCw5q/giphy.gif">';
                     }
                     if(quizSubStep === 2) text.innerText = "Acho bem! 🥰";
                     if(quizSubStep === 0) {
@@ -353,11 +363,15 @@
         function accepted() {
             document.getElementById('final-question').innerText = "Sábia decisão! ❤️ Agora não há devoluções!";
             
-            // GIF FINAL (os ursinhos fofos)
-            document.getElementById('final-gif').src = "https://media.tenor.com/J1D1d48x1qIAAAAi/tkthao219-bubududu.gif";
+            // GIF NOVO AQUI
+            document.getElementById('final-gif').src = "https://i.giphy.com/media/jyYLZNC0smvFiNZur9/giphy.gif";
             
             document.getElementById('final-btns').style.display = 'none';
             document.getElementById('contador').style.display = 'block';
+            
+            // MOSTRA A MENSAGEM FINAL FOFINHA
+            document.getElementById('final-msg').style.display = 'block';
+            
             document.getElementById('musica').play();
             setInterval(updateTimer, 1000);
             setInterval(createHeart, 150);
