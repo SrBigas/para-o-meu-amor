@@ -158,10 +158,7 @@
                     const btnDate = document.createElement('button');
                     btnDate.className = 'btn-pink';
                     btnDate.innerText = quizSubStep === 0 ? "19082024 fotos" : "Continuar";
-                    btnDate.onclick = () => { 
-                        if(quizSubStep === 0) { quizSubStep = 1; renderQuiz(); } 
-                        else nextQ(); 
-                    };
+                    btnDate.onclick = () => { if(quizSubStep === 0) { quizSubStep = 1; renderQuiz(); } else nextQ(); };
                     btns.appendChild(btnDate);
                     if(quizSubStep === 0) {
                         const btnStatic = document.createElement('button');
@@ -192,7 +189,6 @@
                     if(quizSubStep === 1) { btns.innerHTML = ''; createBtn("Concordo plenamente", nextQ); }
                     break;
                 case 9:
-                    // --- ATUALIZAÇÃO DO MCDONALDS ---
                     title.innerText = "Pergunta 9/10";
                     const mcGifs = [
                         "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXU5aXNmbThxYmN5dXhybnJxZGpqZmZpZHQ3MDBidTRnZXllZTZ6ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Qtj9HpyAyRvQclo3Ka/giphy.gif",
@@ -200,25 +196,27 @@
                         "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmg5OW1lbHM0c3dydGQ1MGd3em12bDJ2YmxwdjVuN3l6ZXE2MmR3YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MNK7GFgKMQmHu/giphy.gif",
                         "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2llOWdxdmYxN3hnNnlwcXN1aDdqMGZ6cmN5dGFsYXBsZW4zc3k1eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qQIao8w3FiXaALqCKq/giphy.gif"
                     ];
-                    const mcTexts = [
-                        "Onde vamos jantar hoje?",
-                        "E se o primeiro estiver cheio?",
-                        "Mas eu queria variar um bocado...",
-                        "Ok, última tentativa!"
-                    ];
+                    const mcTexts = ["Onde vamos jantar hoje?", "E se o primeiro estiver cheio?", "Mas eu queria variar um bocado...", "Ok, última tentativa!"];
                     text.innerText = mcTexts[quizSubStep];
                     media.innerHTML = `<img src="${mcGifs[quizSubStep]}">`;
-                    
-                    createBtn("McDonalds", () => {
-                        if(quizSubStep < 3) { quizSubStep++; renderQuiz(); }
-                        else nextQ();
-                    });
+                    createBtn("McDonalds", () => { if(quizSubStep < 3) { quizSubStep++; renderQuiz(); } else nextQ(); });
                     break;
+                
+                // --- NOVA PERGUNTA 10: OS PEIDOS ---
                 case 10:
                     title.innerText = "Pergunta 10/10";
-                    text.innerText = "Estás pronta para a pergunta final?";
-                    createBtn("Sim!", () => showSec('sec-redeem'));
-                    createBtn("Sim, por favor!", () => showSec('sec-redeem'));
+                    text.innerText = quizSubStep === 0 ? "Quem se peida mais?" : (quizSubStep === 1 ? "Pois é, admito... 💨" : "Mentira! Eu sei que não te peidas, és uma princesa! 👑");
+                    
+                    if(quizSubStep === 0) {
+                        createBtn("Eu", () => { quizSubStep = 1; renderQuiz(); });
+                        createBtn("A minha baby", () => { quizSubStep = 2; renderQuiz(); });
+                    } else if (quizSubStep === 1) {
+                        media.innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/zBYamf99p9S7u/giphy.gif">';
+                        createBtn("Continuar", () => showSec('sec-redeem'));
+                    } else {
+                        media.innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/yFQ0ywscgobJK/giphy.gif">';
+                        createBtn("Acho bem ❤️", () => showSec('sec-redeem'));
+                    }
                     break;
             }
         }
@@ -245,8 +243,7 @@
                 const safeX = Math.max(20, Math.min(newX, window.innerWidth - btn.offsetWidth - 20));
                 const safeY = Math.max(20, Math.min(newY, window.innerHeight - btn.offsetHeight - 20));
                 btn.style.position = 'fixed';
-                btn.style.left = safeX + 'px';
-                btn.style.top = safeY + 'px';
+                btn.style.left = safeX + 'px'; btn.style.top = safeY + 'px';
                 fleeCount++;
             } else {
                 btn.innerText = "OK, JÁ CHEGA! VER PRÉMIO";
@@ -266,8 +263,7 @@
             const radius = 150 + noCount * 5;
             const x = yesRect.left + yesRect.width/2 + Math.cos(angle) * radius - 50;
             const y = yesRect.top + yesRect.height/2 + Math.sin(angle) * radius - 25;
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
+            noBtn.style.left = x + 'px'; noBtn.style.top = y + 'px';
             const phrases = ["Não", "Certeza?", "Pensa bem", "Noop", "Tenta outra vez", "Diz que sim ❤️"];
             noBtn.innerText = phrases[noCount % phrases.length];
             noCount++;
