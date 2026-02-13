@@ -155,8 +155,6 @@
                     title.innerText = "Pergunta 6/10 (Easter Egg!)";
                     text.innerText = quizSubStep === 0 ? "Quantas fotos tenho que tirar até uma ficar digna de instagram? 😂" : "Não reparaste em nada? ❤️";
                     if(quizSubStep === 1) text.innerHTML += "<br><span style='font-size:40px'>19 / 08 / 2024</span>";
-                    
-                    // Botão Correto: 19082024
                     const btnDate = document.createElement('button');
                     btnDate.className = 'btn-pink';
                     btnDate.innerText = quizSubStep === 0 ? "19082024 fotos" : "Continuar";
@@ -165,13 +163,11 @@
                         else nextQ(); 
                     };
                     btns.appendChild(btnDate);
-
-                    // Botão Inativo: Agora também é rosa e não faz nada
                     if(quizSubStep === 0) {
                         const btnStatic = document.createElement('button');
-                        btnStatic.className = 'btn-pink'; // MUDADO PARA ROSA
+                        btnStatic.className = 'btn-pink';
                         btnStatic.innerText = "Até o telemóvel ficar sem bateria";
-                        btnStatic.onclick = () => { /* Faz absolutamente nada */ };
+                        btnStatic.onclick = () => { };
                         btns.appendChild(btnStatic);
                     }
                     break;
@@ -196,9 +192,27 @@
                     if(quizSubStep === 1) { btns.innerHTML = ''; createBtn("Concordo plenamente", nextQ); }
                     break;
                 case 9:
+                    // --- ATUALIZAÇÃO DO MCDONALDS ---
                     title.innerText = "Pergunta 9/10";
-                    text.innerText = "Onde vamos jantar hoje?";
-                    for(let i=0; i<4; i++) createBtn("McDonalds", nextQ);
+                    const mcGifs = [
+                        "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXU5aXNmbThxYmN5dXhybnJxZGpqZmZpZHQ3MDBidTRnZXllZTZ6ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Qtj9HpyAyRvQclo3Ka/giphy.gif",
+                        "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmhqNHh0d2JwYjhkbnpsNm50Z240NjJzeHA2MXo1a2YwMTF2c2s2ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WtCHRSPCuqS8E/giphy.gif",
+                        "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmg5OW1lbHM0c3dydGQ1MGd3em12bDJ2YmxwdjVuN3l6ZXE2MmR3YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MNK7GFgKMQmHu/giphy.gif",
+                        "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2llOWdxdmYxN3hnNnlwcXN1aDdqMGZ6cmN5dGFsYXBsZW4zc3k1eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qQIao8w3FiXaALqCKq/giphy.gif"
+                    ];
+                    const mcTexts = [
+                        "Onde vamos jantar hoje?",
+                        "E se o primeiro estiver cheio?",
+                        "Mas eu queria variar um bocado...",
+                        "Ok, última tentativa!"
+                    ];
+                    text.innerText = mcTexts[quizSubStep];
+                    media.innerHTML = `<img src="${mcGifs[quizSubStep]}">`;
+                    
+                    createBtn("McDonalds", () => {
+                        if(quizSubStep < 3) { quizSubStep++; renderQuiz(); }
+                        else nextQ();
+                    });
                     break;
                 case 10:
                     title.innerText = "Pergunta 10/10";
