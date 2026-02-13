@@ -60,7 +60,7 @@
 
     <div id="sec-redeem" class="section">
         <h1>Teste Concluído! Acertaste TUDO! 🎉</h1>
-        <img id="redeemGif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYt5jRKzAFnMBe8/giphy.gif">
+        <img id="redeemGif" src="https://i.giphy.com/media/IwAZ6dvvvaTtdI8SD5/giphy.gif">
         <div id="redeemArea" style="height: 150px; width: 100%; display: flex; justify-content: center; align-items: center;">
             <button id="redeemBtn" class="btn-green" onclick="handleRedeem()">REDEEM YOUR PRIZE 🎁</button>
         </div>
@@ -152,7 +152,7 @@
                     if(quizSubStep === 1) { btns.innerHTML = ''; createBtn("Pois é 😇", nextQ); }
                     break;
                 
-                // --- PERGUNTA 6 CORRIGIDA (DATA 17/08/2024) ---
+                // --- PERGUNTA 6 (DATA 17/08/2024) ---
                 case 6:
                     title.innerText = "Pergunta 6/10 (Easter Egg!)";
                     text.innerText = quizSubStep === 0 ? "Quantas fotos tenho que tirar até uma ficar digna de instagram? 😂" : "Não reparaste em nada? ❤️";
@@ -176,12 +176,14 @@
                     }
                     break;
                 
+                // --- PERGUNTA 7 (GIF MINHOCA ATUALIZADO) ---
                 case 7:
                     title.innerText = "Pergunta 7/10";
                     text.innerText = "Se eu fosse uma minhoca...";
                     if(quizSubStep === 1) {
                         text.innerText = "Tu és mesmo má! 🥺";
-                        media.innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/v98L8wALXpS6Y/giphy.gif">';
+                        // GIF ATUALIZADO AQUI
+                        media.innerHTML = '<img src="https://i.giphy.com/media/q0Fm9D20SCw5q/giphy.gif">';
                     }
                     if(quizSubStep === 2) text.innerText = "Acho bem! 🥰";
                     if(quizSubStep === 0) {
@@ -189,6 +191,7 @@
                         createBtn("Davas-me mimos", () => { quizSubStep = 2; renderQuiz(); });
                     } else createBtn("Continuar", nextQ);
                     break;
+
                 case 8:
                     title.innerText = "Pergunta 8/10";
                     text.innerText = quizSubStep === 0 ? "Qual é o meu melhor atributo?" : "Paciência de santo + O meu rabo (Combo Perfeito)";
@@ -196,19 +199,24 @@
                     createBtn("O meu rabo", () => { quizSubStep = 1; renderQuiz(); });
                     if(quizSubStep === 1) { btns.innerHTML = ''; createBtn("Concordo plenamente", nextQ); }
                     break;
+
+                // --- PERGUNTA 9 (GIF MC ATUALIZADO) ---
                 case 9:
                     title.innerText = "Pergunta 9/10";
                     const mcGifs = [
                         "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXU5aXNmbThxYmN5dXhybnJxZGpqZmZpZHQ3MDBidTRnZXllZTZ6ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Qtj9HpyAyRvQclo3Ka/giphy.gif",
                         "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmhqNHh0d2JwYjhkbnpsNm50Z240NjJzeHA2MXo1a2YwMTF2c2s2ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WtCHRSPCuqS8E/giphy.gif",
                         "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmg5OW1lbHM0c3dydGQ1MGd3em12bDJ2YmxwdjVuN3l6ZXE2MmR3YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MNK7GFgKMQmHu/giphy.gif",
-                        "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2llOWdxdmYxN3hnNnlwcXN1aDdqMGZ6cmN5dGFsYXBsZW4zc3k1eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qQIao8w3FiXaALqCKq/giphy.gif"
+                        // GIF ATUALIZADO AQUI
+                        "https://i.giphy.com/media/AwydQR7iziW4keNi42/giphy.gif"
                     ];
                     const mcTexts = ["Onde vamos jantar hoje?", "E se o primeiro estiver cheio?", "Mas eu queria variar um bocado...", "Ok, última tentativa!"];
                     text.innerText = mcTexts[quizSubStep];
                     media.innerHTML = `<img src="${mcGifs[quizSubStep]}">`;
                     createBtn("McDonalds", () => { if(quizSubStep < 3) { quizSubStep++; renderQuiz(); } else nextQ(); });
                     break;
+                
+                // --- PERGUNTA 10 (GIF PEIDO ATUALIZADO) ---
                 case 10:
                     title.innerText = "Pergunta 10/10";
                     text.innerText = quizSubStep === 0 ? "Quem se peida mais?" : (quizSubStep === 1 ? "Pois é, admito... 💨" : "Mentira! Eu sei que não te peidas, és uma princesa! 👑");
@@ -217,7 +225,8 @@
                         createBtn("Eu", () => { quizSubStep = 1; renderQuiz(); });
                         createBtn("A minha baby", () => { quizSubStep = 2; renderQuiz(); });
                     } else if (quizSubStep === 1) {
-                        media.innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/zBYamf99p9S7u/giphy.gif">';
+                        // GIF ATUALIZADO AQUI
+                        media.innerHTML = '<img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOW5lcGY2cTlkbzBlNHF1MXJhbnV2cnIwNnVsdGs4enowcGsyamtlNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LFvQBWwKk7Qc0/giphy.gif">';
                         createBtn("Continuar", () => showSec('sec-redeem'));
                     } else {
                         media.innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/yFQ0ywscgobJK/giphy.gif">';
