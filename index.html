@@ -60,7 +60,7 @@
 
     <div id="sec-redeem" class="section">
         <h1>Teste Concluído! Acertaste TUDO! 🎉</h1>
-        <img id="redeemGif" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExazR5c2xzOGJjdzI4bHIyYmg2NGU1b2Uyc3lmNzlianlwYzR1a3hkaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IwAZ6dvvvaTtdI8SD5/giphy.gif">
+        <img id="redeemGif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYt5jRKzAFnMBe8/giphy.gif">
         <div id="redeemArea" style="height: 150px; width: 100%; display: flex; justify-content: center; align-items: center;">
             <button id="redeemBtn" class="btn-green" onclick="handleRedeem()">REDEEM YOUR PRIZE 🎁</button>
         </div>
@@ -153,7 +153,7 @@
                     break;
                 case 6:
                     title.innerText = "Pergunta 6/10 (Easter Egg!)";
-                    text.innerText = quizSubStep === 0 ? "Quantas fotos até estares 'Instagramável'?" : "Não reparaste em nada? ❤️";
+                    text.innerText = quizSubStep === 0 ? "Quantas fotos tenho que tirar até uma ficar digna de instagram? 😂" : "Não reparaste em nada? ❤️";
                     if(quizSubStep === 1) text.innerHTML += "<br><span style='font-size:40px'>19 / 08 / 2024</span>";
                     
                     // Botão Correto: 19082024
@@ -166,12 +166,12 @@
                     };
                     btns.appendChild(btnDate);
 
-                    // Botão Estático: Não faz nada (apenas para confundir)
+                    // Botão Inativo: Agora também é rosa e não faz nada
                     if(quizSubStep === 0) {
                         const btnStatic = document.createElement('button');
-                        btnStatic.className = 'btn-red';
+                        btnStatic.className = 'btn-pink'; // MUDADO PARA ROSA
                         btnStatic.innerText = "Até o telemóvel ficar sem bateria";
-                        btnStatic.onclick = () => { /* Não faz nada */ };
+                        btnStatic.onclick = () => { /* Faz absolutamente nada */ };
                         btns.appendChild(btnStatic);
                     }
                     break;
@@ -180,7 +180,7 @@
                     text.innerText = "Se eu fosse uma minhoca...";
                     if(quizSubStep === 1) {
                         text.innerText = "Tu és mesmo má! 🥺";
-                        media.innerHTML = '<img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDZkdXg0ZHFhY3o2aW9mbXo0dW1wc2Nlbjd5YzJveWJlazA5cXBjaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/q0Fm9D20SCw5q/giphy.gif">';
+                        media.innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW54amZndm96eXp6eXp6eXp6eXp6eXp6eXp6eXp6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/v98L8wALXpS6Y/giphy.gif">';
                     }
                     if(quizSubStep === 2) text.innerText = "Acho bem! 🥰";
                     if(quizSubStep === 0) {
