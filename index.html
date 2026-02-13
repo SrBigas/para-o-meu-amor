@@ -22,7 +22,7 @@
         button {
             padding: 15px 30px; font-size: 18px; cursor: pointer; border: none;
             border-radius: 50px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 2;
+            z-index: 2; position: relative;
         }
 
         .btn-pink { background-color: #ff85a2; color: white; }
@@ -35,25 +35,32 @@
         }
 
         .timer-unit { font-weight: bold; font-size: 1.3rem; }
-        .heart { position: fixed; color: #ff4d4d; animation: fall linear forwards; z-index: 0; }
-        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
         
-        img { max-width: 250px; border-radius: 15px; margin-bottom: 10px; }
+        /* Animação Corações (Final) */
+        .heart { position: fixed; color: #ff4d4d; animation: fall linear forwards; z-index: 0; top: -20px; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
+
+        /* NOVO: Animação Balões (Surpresa) */
+        .balloon { position: fixed; font-size: 25px; animation: floatUp linear forwards; z-index: 0; bottom: -50px; }
+        @keyframes floatUp { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
+        
+        img { max-width: 250px; border-radius: 15px; margin-bottom: 10px; z-index: 2; position: relative; }
         #redeemBtn { position: relative; transition: 0.2s ease-out; }
 
         /* Estilo da Carta */
         .love-letter {
-            background-color: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 80%;
-            font-family: 'Arial', sans-serif;
-            font-style: italic;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            border: 1px solid #ffccd5;
+            background-color: white; padding: 25px; border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 80%;
+            font-family: 'Arial', sans-serif; font-style: italic; color: #555;
+            line-height: 1.6; margin-bottom: 20px; border: 1px solid #ffccd5;
+            z-index: 2; position: relative;
+        }
+
+        /* NOVO: Estilo do Disclaimer */
+        .disclaimer {
+            font-size: 0.7rem; color: #888; margin-top: 15px; 
+            font-style: italic; max-width: 85%; line-height: 1.2;
+            z-index: 2; position: relative;
         }
     </style>
 </head>
@@ -62,7 +69,7 @@
     <div id="sec-capa" class="section active">
         <h1>Tenho um desafio para ti... ❤️</h1>
         <img src="https://media.giphy.com/media/cLS1cfxvGOPVpf9g3y/giphy.gif">
-        <p>Estás preparada para o Teste de Aptidão de Namorada?</p>
+        <p style="z-index:2; position:relative;">Estás preparada para o Teste de Aptidão de Namorada?</p>
         <button class="btn-pink" onclick="showSec('sec-quiz')">Estou pronta! 🚀</button>
     </div>
 
@@ -84,7 +91,7 @@
     <div id="sec-stop" class="section">
         <h1>PARA TUDO! ✋</h1>
         <img src="https://media.giphy.com/media/HIWNaM05qJAENE1TJM/giphy.gif">
-        <p>Antes da tua primeira prenda...</p>
+        <p style="z-index:2; position:relative;">Antes da tua primeira prenda...</p>
         <button class="btn-pink" onclick="showSec('sec-letter')">O que foi? 🥺</button>
     </div>
 
@@ -101,12 +108,15 @@
     </div>
 
     <div id="sec-vale" class="section">
-        <h1>Surpresa! 👢</h1>
-        <div style="background: white; padding: 20px; border-radius: 20px; border: 3px dashed #d63384; max-width: 80%;">
-            <h2>Vale 1 par de botas</h2>
-            <p>"Válido para o resto das nossas vidas" ❤️</p>
+        <h1>Surpresa! 👠</h1> <div style="background: white; padding: 20px; border-radius: 20px; border: 3px dashed #d63384; max-width: 80%; z-index: 2; position: relative;">
+            <h2>Vale 1 par de saltos altos</h2> <p>"Válido para o resto das nossas vidas" ❤️</p>
         </div>
-        <p style="margin-top: 20px;">Estás pronta para a pergunta final?</p>
+        
+        <p class="disclaimer">
+            *Termos e Condições: Oferta limitada ao stock existente no meu coração (que é infinito). Válida apenas se me deres um beijinho quando os receberes. O promotor (eu) reserva-se o direito de te achar a mulher mais linda do mundo quando os usares.
+        </p>
+
+        <p style="margin-top: 20px; z-index: 2; position: relative;">Estás pronta para a pergunta final?</p>
         <button class="btn-pink" onclick="showSec('sec-final')">SIM, DESPACHA-TE!</button>
     </div>
 
@@ -129,11 +139,34 @@
         let currentStep = 1;
         let quizSubStep = 0;
         let fleeCount = 0;
+        let balloonInterval; // Para controlar os balões
 
         function showSec(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            
+            // Lógica específica para cada secção
             if(id === 'sec-quiz') renderQuiz();
+            
+            // Inicia balões APENAS na secção do vale
+            if(id === 'sec-vale') {
+                 balloonInterval = setInterval(createBalloon, 300);
+            } else {
+                 // Pára os balões se sair da secção (opcional, mas boa prática)
+                 if(balloonInterval) clearInterval(balloonInterval);
+            }
+        }
+
+        // --- NOVA FUNÇÃO: CRIAR BALÕES ---
+        function createBalloon() {
+            const b = document.createElement('div');
+            b.className = 'balloon'; b.innerText = '🎈';
+            b.style.left = Math.random() * 100 + 'vw';
+            // Tamanho e velocidade aleatórios para dar efeito natural
+            b.style.fontSize = (Math.random() * 25 + 20) + 'px';
+            b.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            document.body.appendChild(b);
+            setTimeout(() => b.remove(), 8000); // Remove depois de subir
         }
 
         function renderQuiz() {
@@ -315,10 +348,7 @@
 
         function accepted() {
             document.getElementById('final-question').innerText = "Sábia decisão! ❤️ Agora não há devoluções!";
-            
-            // GIF FINAL CORRIGIDO PARA UM MAIS ESTÁVEL DE DOIS URSINHOS A ABRAÇAREM-SE PARA NÃO DAR ERRO
-            document.getElementById('final-gif').src = "https://media.tenor.com/J1D1d48x1qIAAAAi/tkthao219-bubududu.gif";
-            
+            document.getElementById('final-gif').src = "https://media.giphy.com/media/KztT2c4u8mYYUiCiZ7/giphy.gif";
             document.getElementById('final-btns').style.display = 'none';
             document.getElementById('contador').style.display = 'block';
             document.getElementById('musica').play();
