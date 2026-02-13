@@ -40,7 +40,7 @@
         .heart { position: fixed; color: #ff4d4d; animation: fall linear forwards; z-index: 0; top: -20px; }
         @keyframes fall { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
 
-        /* NOVO: Animação Balões (Surpresa) */
+        /* Animação Balões (Surpresa) */
         .balloon { position: fixed; font-size: 25px; animation: floatUp linear forwards; z-index: 0; bottom: -50px; }
         @keyframes floatUp { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
         
@@ -56,7 +56,7 @@
             z-index: 2; position: relative;
         }
 
-        /* NOVO: Estilo do Disclaimer */
+        /* Estilo do Disclaimer */
         .disclaimer {
             font-size: 0.7rem; color: #888; margin-top: 15px; 
             font-style: italic; max-width: 85%; line-height: 1.2;
@@ -108,8 +108,10 @@
     </div>
 
     <div id="sec-vale" class="section">
-        <h1>Surpresa! 👠</h1> <div style="background: white; padding: 20px; border-radius: 20px; border: 3px dashed #d63384; max-width: 80%; z-index: 2; position: relative;">
-            <h2>Vale 1 par de saltos altos</h2> <p>"Válido para o resto das nossas vidas" ❤️</p>
+        <h1>Surpresa! 👠</h1> 
+        <div style="background: white; padding: 20px; border-radius: 20px; border: 3px dashed #d63384; max-width: 80%; z-index: 2; position: relative;">
+            <h2>Vale 1 par de saltos altos</h2>
+            <p>"Válido para o resto das nossas vidas" ❤️</p>
         </div>
         
         <p class="disclaimer">
@@ -117,7 +119,14 @@
         </p>
 
         <p style="margin-top: 20px; z-index: 2; position: relative;">Estás pronta para a pergunta final?</p>
-        <button class="btn-pink" onclick="showSec('sec-final')">SIM, DESPACHA-TE!</button>
+        <button class="btn-pink" onclick="showSec('sec-drumroll')">SIM, DESPACHA-TE!</button>
+    </div>
+
+    <div id="sec-drumroll" class="section">
+        <h1>Prepara-te... 🥁</h1>
+        <img src="https://media.giphy.com/media/u0YhXjoPxl0Pu/giphy.gif">
+        <p style="z-index:2; position:relative; margin-top:20px;">A pergunta mais importante de todas...</p>
+        <button class="btn-pink" onclick="showSec('sec-final')">QUE NERVOS, MOSTRA LOGO! 🫣</button>
     </div>
 
     <div id="sec-final" class="section">
@@ -139,34 +148,30 @@
         let currentStep = 1;
         let quizSubStep = 0;
         let fleeCount = 0;
-        let balloonInterval; // Para controlar os balões
+        let balloonInterval; 
 
         function showSec(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             
-            // Lógica específica para cada secção
             if(id === 'sec-quiz') renderQuiz();
             
-            // Inicia balões APENAS na secção do vale
+            // Inicia balões na secção do vale e pára quando ela avança
             if(id === 'sec-vale') {
                  balloonInterval = setInterval(createBalloon, 300);
             } else {
-                 // Pára os balões se sair da secção (opcional, mas boa prática)
                  if(balloonInterval) clearInterval(balloonInterval);
             }
         }
 
-        // --- NOVA FUNÇÃO: CRIAR BALÕES ---
         function createBalloon() {
             const b = document.createElement('div');
             b.className = 'balloon'; b.innerText = '🎈';
             b.style.left = Math.random() * 100 + 'vw';
-            // Tamanho e velocidade aleatórios para dar efeito natural
             b.style.fontSize = (Math.random() * 25 + 20) + 'px';
             b.style.animationDuration = (Math.random() * 3 + 5) + 's';
             document.body.appendChild(b);
-            setTimeout(() => b.remove(), 8000); // Remove depois de subir
+            setTimeout(() => b.remove(), 8000); 
         }
 
         function renderQuiz() {
@@ -219,7 +224,6 @@
                     if(quizSubStep === 1) { btns.innerHTML = ''; createBtn("Pois é 😇", nextQ); }
                     break;
                 
-                // --- PERGUNTA 6 (DATA 17/08/2024) ---
                 case 6:
                     title.innerText = "Pergunta 6/10 (Easter Egg!)";
                     text.innerText = quizSubStep === 0 ? "Quantas fotos tenho que tirar até uma ficar digna de instagram? 😂" : "Não reparaste em nada? ❤️";
@@ -348,7 +352,10 @@
 
         function accepted() {
             document.getElementById('final-question').innerText = "Sábia decisão! ❤️ Agora não há devoluções!";
-            document.getElementById('final-gif').src = "https://media.giphy.com/media/KztT2c4u8mYYUiCiZ7/giphy.gif";
+            
+            // GIF FINAL (os ursinhos fofos)
+            document.getElementById('final-gif').src = "https://media.tenor.com/J1D1d48x1qIAAAAi/tkthao219-bubududu.gif";
+            
             document.getElementById('final-btns').style.display = 'none';
             document.getElementById('contador').style.display = 'block';
             document.getElementById('musica').play();
