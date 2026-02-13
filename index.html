@@ -244,7 +244,7 @@ Prometo amar-te e cuidar de ti para o resto da minha vida, porque és perfeita, 
                         "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmg5OW1lbHM0c3dydGQ1MGd3em12bDJ2YmxwdjVuN3l6ZXE2MmR3YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MNK7GFgKMQmHu/giphy.gif",
                         "https://i.giphy.com/media/AwydQR7iziW4keNi42/giphy.gif"
                     ];
-                    const mcTexts = ["Onde vamos jantar hoje?", "E se o primeiro estiver cheio?", "Mas eu queria variar um bocado...", "Ok, última tentativa!"];
+                    const mcTexts = ["Onde vamos jantar hoje?", "E se o primeiro estiver cheio?", "Vamos a outro sitio?", "Claro que é Mc, é a nossa comida de dia de namorados!"];
                     text.innerText = mcTexts[quizSubStep];
                     media.innerHTML = `<img src="${mcGifs[quizSubStep]}">`;
                     createBtn("McDonalds", () => { if(quizSubStep < 3) { quizSubStep++; renderQuiz(); } else nextQ(); });
